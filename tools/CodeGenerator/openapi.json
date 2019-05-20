@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenLMS",
+    "version": "1.0",
+    "description": "Open Learning Management System (OLMS) API",
+    "termsOfService": "",
+    "license": {
+      "name": "apache",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+    },
+    "contact": {
+      "email": "bradley.marshall@fwisd.org",
+      "name": "Brad Marshall",
+      "url": "https://fwisd.org"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://openlms.sped.mobi/api/{version}",
+      "description": "Sandbox Server",
+      "variables": {
+        "version": {
+          "default": "v1",
+          "description": "The version of the api."
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/schools": {
+      "get": {
+        "operationId": "GetAllSchools",
+        "summary": "GetAllSchools",
+        "description": "Gets all schools on record.",
+        "tags": [ "SchoolController" ],
+        "responses": {
+          "200": {
+            "description": "Indicates a successful api call. It returns the set of schools from the SerivceProvider.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchoolSet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/school/{id}": {
+      "get": {
+        "operationId": "GetSchoolById",
+        "summary": "GetSchoolById",
+        "description": "Gets the school with the supplied id.",
+        "tags": [ "SchoolController" ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Indicates a successful api call. It returns the school with the supplied id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/School"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "path",
+        "description": "The unique identity of an object.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "responses": {
+
+    },
+    "schemas": {
+      "SchoolType": {
+        "title": "SchoolType",
+        "description": "Describe the type of school relative to the age group of its students.",
+        "type": "string",
+        "enum": [
+          "ElementarySchool",
+          "MiddleSchool",
+          "HighSchool"
+        ]
+      },
+      "SchoolSet": {
+        "title": "SchoolSet",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/School"
+        }
+      },
+      "School": {
+        "title": "School",
+        "type": "object",
+        "required": [ "name", "type" ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SchoolType"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "phone": {
+            "type": "string",
+            "format": "regex",
+            "pattern": "^(\\(\\d{3}\\)|\\d{3}) ?\\d{3}-?\\d{4}"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "SchoolController",
+      "description": "Describes a set of services that target Schools."
+    }
+  ]
+}

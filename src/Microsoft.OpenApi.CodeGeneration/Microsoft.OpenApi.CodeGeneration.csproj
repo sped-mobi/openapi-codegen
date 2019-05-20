@@ -1,0 +1,23 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Description>Code Generation for OpenAPI</Description>
+    <PackageDescription>$(Description)</PackageDescription>
+    <PackageReleaseNotes>$(PackageDescription)</PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <Sdk Name="Microsoft.NET.Sdk" />
+
+  <PropertyGroup> 
+    <RootNamespace>Microsoft.OpenApi.CodeGeneration</RootNamespace>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Supervisor\" />
+  </ItemGroup>
+
+
+</Project>
