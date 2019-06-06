@@ -6,9 +6,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenerator", "tools\Code
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{BE5EC3BC-39CD-439B-BC2C-613A55C0F854}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		appveyor.yml = appveyor.yml
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
+		EFCoreNotes.md = EFCoreNotes.md
 		global.json = global.json
 		NuGet.config = NuGet.config
 		README.md = README.md
@@ -20,6 +22,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.OpenApi.CodeGeneration", "src\Microsoft.OpenApi.CodeGeneration\Microsoft.OpenApi.CodeGeneration.csproj", "{12613504-2771-4A96-BD07-FB096928138F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{07A3BD09-3668-4070-A060-BCE687038D02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{ACBFC54F-62C3-4A64-9718-E430824D6E17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{97BF6BA4-89F9-45C5-9440-DF0277669822} = {07A3BD09-3668-4070-A060-BCE687038D02}
+		{12613504-2771-4A96-BD07-FB096928138F} = {ACBFC54F-62C3-4A64-9718-E430824D6E17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8995280C-C576-4653-9C44-6689B7F39633}

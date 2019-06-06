@@ -1,17 +1,5 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
+﻿using Microsoft.OpenApi.CodeGeneration.Utilities;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Controllers;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Entities;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
-using Microsoft.OpenApi.CodeGeneration.ViewModels;
-using Microsoft.OpenApi.CodeGeneration.Context;
-using Microsoft.OpenApi.CodeGeneration.Supervisor;
 
 namespace Microsoft.OpenApi.CodeGeneration.Configurations
 {
@@ -24,9 +12,33 @@ namespace Microsoft.OpenApi.CodeGeneration.Configurations
         {
             Clear();
             GenerateFileHeader();
+            WriteLine("using Microsoft.EntityFrameworkCore;");
+            WriteLine("using Microsoft.EntityFrameworkCore.Metadata.Builders;");
+            WriteLine();
             WriteLine($"namespace {@namespace}");
             using (OpenBlock())
             {
+                string className = Dependencies.Namer.Configuration(name);
+                WriteLine($"public partial class {className} : IEntityTypeConfiguration<{name}>");
+                using (OpenBlock())
+                {
+
+                    WriteLine($"public void Configure(EntityTypeBuilder<{name}> builder)");
+                    using (OpenBlock())
+                    {
+                        var properties = schema.GetAllPropertiesRecursive();
+
+                        foreach (var kvp in properties)
+                        {
+                            if (!kvp.Value.IsArrayOrObject())
+                            {
+                                Write($"builder.Property(x => x.{kvp.Key})");
+
+                                WriteLine(";");
+                            }
+                        }
+                    }
+                }
             }
             return GetText();
         }

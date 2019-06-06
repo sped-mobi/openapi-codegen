@@ -1,0 +1,306 @@
+{
+  "openapi": "3.0.1",
+  "x-codegen": {
+    "defaultRoute": "api/v1/[controller]", 
+    "rootNamespace": "Sped.Mobi.OpenLMS",
+    "contextName": "OpenLMSDbContext",
+    "supervisorName": "OpenLMSSupervisor",
+    "primaryKeyType": "Guid",
+    "outputDir": "C:\\stage\\temp\\",
+    "addPrimaryKeyProperties": true,
+    "addForeignKeyProperties": true,
+    "addReverseNavigationProperties": true,
+    "rootProjectName": "OpenLMS",
+    "solutionName": "openlms",
+    "databaseName": "OpenLMS" 
+  },
+  "info": {
+    "title": "OpenLMS",
+    "version": "1.0",
+    "description": "Open Learning Management System (OLMS) API",
+    "termsOfService": "",
+    "license": {
+      "name": "apache",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+    },
+    "contact": {
+      "email": "bradley.marshall@fwisd.org",
+      "name": "Brad Marshall",
+      "url": "https://fwisd.org"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://openlms.sped.mobi/api/{version}",
+      "description": "Sandbox Server",
+      "variables": {
+        "version": {
+          "default": "v1",
+          "description": "The version of the api."
+        }
+      }
+    }
+  ],
+  "paths": {
+
+    "/schools": {
+      "get": {
+        "operationId": "GetAllSchools",
+        "summary": "GetAllSchools",
+        "description": "Gets all schools on record.",
+        "tags": [ "SchoolController" ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Schools_200"
+          }
+        }
+      }
+    },
+    "/school/{id}": {
+      "get": {
+        "operationId": "GetSchoolById",
+        "summary": "GetSchoolById",
+        "description": "Gets the school with the supplied id.",
+        "tags": [ "SchoolController" ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/School_200"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "path",
+        "description": "The unique identity of an object.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+
+    },
+    "responses": {
+      "School_200": {
+        "description": "Indicates a successful api call. It returns the school with the supplied id.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/School"
+            }
+          }
+        }
+      },
+      "Schools_200": {
+        "description": "Indicates a successful api call. It returns all of the schools from the SerivceProvider.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/School"
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+
+      "PrimaryKey": {
+        "type": "string",
+        "format": "uuid",
+        "x-codegen": {
+          "skip": true, 
+          "primaryKey": true
+        }
+      },
+
+      "District": {
+        "type": "object",
+        "required": [ "districtId", "name", "website", "phone" ],
+        "properties": {
+          "districtId": {
+            "$ref": "#/components/schemas/PrimaryKey"
+          },
+          "name": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "phone": {
+            "type": "string",
+            "format": "regex",
+            "pattern": "^(\\(\\d{3}\\)|\\d{3}) ?\\d{3}-?\\d{4}"
+          },
+
+          "schools": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/School"
+            }
+          }
+        }
+
+
+      },
+
+      "School": {
+        "type": "object",
+        "required": [ "schoolId", "name", "website", "phone" ],
+        "properties": {
+          "schoolId": {
+            "$ref": "#/components/schemas/PrimaryKey"
+          },
+          "name": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "format": "regex",
+            "pattern": "^(\\(\\d{3}\\)|\\d{3}) ?\\d{3}-?\\d{4}"
+          },
+          "districtId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "district": {
+            "$ref": "#/components/schemas/District"
+          },
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            }
+          },
+          "teachers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacher"
+            }
+          }
+        }
+      },
+
+      "Name": {
+        "type": "object",
+        "properties": {
+          "titlePrefix": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "generationSuffix": {
+            "type": "string"
+          },
+          "maidenName": {
+            "type": "string"
+          }
+        },
+        "x-codegen": {
+          "skip": true
+        }
+      },
+
+      "Student": {
+        "type": "object",
+        "required": [ "studentId", "firstName", "lastName" ],
+        "allOf": [
+          {
+            "properties": {
+              "studentId": {
+                "$ref": "#/components/schemas/PrimaryKey"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/Name"
+          },
+          {
+            "properties": {
+              "gradeLevel": {
+                "type": "string"
+              },
+              "schoolId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "school": {
+                "$ref": "#/components/schemas/School"
+              },
+              "teacherId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "teacher": {
+                "$ref": "#/components/schemas/Teacher"
+              }
+            }
+          }
+        ]
+      },
+
+      "Teacher": {
+        "type": "object",
+        "allOf": [
+          {
+            "properties": {
+              "teacherId": {
+                "$ref": "#/components/schemas/PrimaryKey"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/Name"
+          },
+          {
+            "properties": {
+              "students": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              }
+            }
+          }
+        ]
+      }
+
+    }
+  },
+  "tags": [
+    {
+      "name": "DistrictController",
+      "description": "Describes a set of services that target Districts."
+    },
+    {
+      "name": "SchoolController",
+      "description": "Describes a set of services that target Schools."
+    }
+  ]
+}

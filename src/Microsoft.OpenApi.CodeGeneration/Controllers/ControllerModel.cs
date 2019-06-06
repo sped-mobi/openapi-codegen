@@ -1,22 +1,9 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Configurations;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Entities;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
-using Microsoft.OpenApi.CodeGeneration.ViewModels;
-using Microsoft.OpenApi.CodeGeneration.Context;
-using Microsoft.OpenApi.CodeGeneration.Supervisor;
+﻿using System.Collections.Generic;
 
 namespace Microsoft.OpenApi.CodeGeneration.Controllers
 {
     public class ControllerModel
     {
-        public IList<ScaffoldedFile> Files { get; } = new List<ScaffoldedFile>();
+        public IReadOnlyList<ScaffoldedFile> Files { get; set; }
     }
 }

@@ -1,19 +1,4 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Configurations;
-using Microsoft.OpenApi.CodeGeneration.Controllers;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Entities;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
-using Microsoft.OpenApi.CodeGeneration.Context;
-using Microsoft.OpenApi.CodeGeneration.Supervisor;
-
-namespace Microsoft.OpenApi.CodeGeneration.ViewModels
+﻿namespace Microsoft.OpenApi.CodeGeneration.ViewModels
 {
     public class ViewModelScaffolder : AbstractScaffolder, IViewModelScaffolder
     {
@@ -22,7 +7,7 @@ namespace Microsoft.OpenApi.CodeGeneration.ViewModels
             Generator = generator;
         }
 
-        protected IViewModelGenerator Generator { get; } 
+        protected IViewModelGenerator Generator { get; }
 
         public void Save(ViewModelModel model)
         {
@@ -32,12 +17,12 @@ namespace Microsoft.OpenApi.CodeGeneration.ViewModels
         public ViewModelModel ScaffoldModel(OpenApiOptions options)
         {
             var model = new ViewModelModel();
-            foreach(var kvp in options.Document.Components.Schemas)
+            foreach (var kvp in options.Document.GetSchemas())
             {
                 var name = kvp.Key;
                 var schema = kvp.Value;
                 var code = Generator.WriteCode(schema, name, Dependencies.Namespace.ViewModel(options.RootNamespace));
-                var path = Dependencies.PathHelper.ViewModel(options.OutputDir, name);
+                var path = Dependencies.PathHelper.ViewModel(options.CoreProjectDir, name);
                 var file = new ScaffoldedFile { Code = code, Path = path };
                 model.Files.Add(file);
             }

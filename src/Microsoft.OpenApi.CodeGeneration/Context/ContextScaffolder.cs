@@ -1,19 +1,4 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Configurations;
-using Microsoft.OpenApi.CodeGeneration.Controllers;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Entities;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
-using Microsoft.OpenApi.CodeGeneration.ViewModels;
-using Microsoft.OpenApi.CodeGeneration.Supervisor;
-
-namespace Microsoft.OpenApi.CodeGeneration.Context
+﻿namespace Microsoft.OpenApi.CodeGeneration.Context
 {
     public class ContextScaffolder : AbstractScaffolder, IContextScaffolder
     {
@@ -22,7 +7,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Context
             Generator = generator;
         }
 
-        protected IContextGenerator Generator { get; } 
+        protected IContextGenerator Generator { get; }
 
         public void Save(ContextModel model)
         {
@@ -35,10 +20,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Context
             var model = new ContextModel();
             var classFile = new ScaffoldedFile();
             var interfaceFile = new ScaffoldedFile();
-            classFile.Code = Generator.WriteClassCode(options.Document, options.RootNamespace);
+            classFile.Code = Generator.WriteClassCode(options.Document, options);
             classFile.Path = Dependencies.PathHelper.Context(options.OutputDir, options.ContextClassName);
-            interfaceFile.Code = Generator.WriteInterfaceCode(options.Document, options.RootNamespace);
-            interfaceFile.Path = Dependencies.PathHelper.Context(options.OutputDir, options.ContextInterfaceName);
+            interfaceFile.Code = Generator.WriteInterfaceCode(options.Document, options);
+            interfaceFile.Path = Dependencies.PathHelper.Context(options.DataProjectDir, options.ContextInterfaceName);
             model.Class = classFile;
             model.Interface = interfaceFile;
             return model;

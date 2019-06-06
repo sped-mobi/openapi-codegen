@@ -1,17 +1,7 @@
-using System;
-using System.IO;
+﻿using System;
 using System.Collections.Generic;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Configurations;
-using Microsoft.OpenApi.CodeGeneration.Controllers;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
-using Microsoft.OpenApi.CodeGeneration.ViewModels;
-using Microsoft.OpenApi.CodeGeneration.Context;
-using Microsoft.OpenApi.CodeGeneration.Supervisor;
+using Microsoft.OpenApi.Models;
 
 namespace Microsoft.OpenApi.CodeGeneration.Entities
 {
@@ -24,9 +14,43 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
         {
             Clear();
             GenerateFileHeader();
+            WriteLine();
             WriteLine($"namespace {@namespace}");
             using (OpenBlock())
             {
+                string className = Dependencies.Namer.Entity(name);
+                WriteLine($"public partial class {className}");
+                using (OpenBlock())
+                {
+                    WriteLine($"public {className}()");
+                    IDictionary<string, OpenApiSchema> properties = schema.GetAllPropertiesRecursive();
+
+                    using (OpenBlock())
+                    {
+                        foreach (var kvp in properties)
+                        {
+                            string n = StringUtilities.MakePascal(kvp.Key);
+                            string t = Dependencies.Schema.ConvertToType(kvp.Value);
+
+                            if (t.StartsWith("ICollection", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                t = t.Replace("ICollection", string.Empty);
+                                t = t.TrimStart('<');
+                                t = t.TrimEnd('>');
+                                WriteLine($"{n} = new HashSet<{t}>();");
+                            }
+                        }
+                    }
+
+                    foreach (var kvp in properties)
+                    {
+                        string n = StringUtilities.MakePascal(kvp.Key);
+                        string t = Dependencies.Schema.ConvertToType(kvp.Value);
+
+                        WriteLine();
+                        WriteLine($"public {t} {n} {{ get; set; }}");
+                    }
+                }
             }
             return GetText();
         }

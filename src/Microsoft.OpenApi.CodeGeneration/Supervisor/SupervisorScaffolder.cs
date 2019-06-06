@@ -1,19 +1,4 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Configurations;
-using Microsoft.OpenApi.CodeGeneration.Controllers;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Entities;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
-using Microsoft.OpenApi.CodeGeneration.ViewModels;
-using Microsoft.OpenApi.CodeGeneration.Context;
-
-namespace Microsoft.OpenApi.CodeGeneration.Supervisor
+﻿namespace Microsoft.OpenApi.CodeGeneration.Supervisor
 {
     public class SupervisorScaffolder : AbstractScaffolder, ISupervisorScaffolder
     {
@@ -22,7 +7,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Supervisor
             Generator = generator;
         }
 
-        protected ISupervisorGenerator Generator { get; } 
+        protected ISupervisorGenerator Generator { get; }
 
         public void Save(SupervisorModel model)
         {
@@ -35,10 +20,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Supervisor
             var model = new SupervisorModel();
             var classFile = new ScaffoldedFile();
             var interfaceFile = new ScaffoldedFile();
-            classFile.Code = Generator.WriteClassCode(options.Document, options.RootNamespace);
-            classFile.Path = Dependencies.PathHelper.Supervisor(options.OutputDir, options.SupervisorClassName);
-            interfaceFile.Code = Generator.WriteInterfaceCode(options.Document, options.RootNamespace);
-            interfaceFile.Path = Dependencies.PathHelper.Supervisor(options.OutputDir, options.SupervisorInterfaceName);
+            classFile.Code = Generator.WriteClassCode(options.Document, options.SupervisorClassName, options.SupervisorInterfaceName, options.RootNamespace);
+            classFile.Path = Dependencies.PathHelper.Supervisor(options.CoreProjectDir, options.SupervisorClassName);
+            interfaceFile.Code = Generator.WriteInterfaceCode(options.Document, options.SupervisorInterfaceName, options.RootNamespace);
+            interfaceFile.Path = Dependencies.PathHelper.Supervisor(options.CoreProjectDir, options.SupervisorInterfaceName);
             model.Class = classFile;
             model.Interface = interfaceFile;
             return model;

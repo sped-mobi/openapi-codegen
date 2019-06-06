@@ -16,6 +16,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Scaffolding
         private readonly IConverterScaffolder _converter;
         private readonly IEntityScaffolder _entity;
         private readonly IRepositoryScaffolder _repository;
+        private readonly IRepositoryInterfaceScaffolder _repositoryInterface;
         private readonly IViewModelScaffolder _viewModel;
         private readonly ISupervisorScaffolder _supervisor;
         private readonly IContextScaffolder _context;
@@ -26,6 +27,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Scaffolding
             IConverterScaffolder converter,
             IEntityScaffolder entity,
             IRepositoryScaffolder repository,
+            IRepositoryInterfaceScaffolder repositoryInterface,
             IViewModelScaffolder viewModel,
             ISupervisorScaffolder supervisor,
             IContextScaffolder context)
@@ -35,6 +37,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Scaffolding
             _converter = converter;
             _entity = entity;
             _repository = repository;
+            _repositoryInterface = repositoryInterface;
             _viewModel = viewModel;
             _supervisor = supervisor;
             _context = context;
@@ -47,6 +50,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Scaffolding
             _converter.Save(model.Converter);
             _entity.Save(model.Entity);
             _repository.Save(model.Repository);
+            _repositoryInterface.Save(model.RepoisitoryInterfaces);
             _viewModel.Save(model.ViewModel);
             _supervisor.Save(model.Supervisor);
             _context.Save(model.Context);
@@ -54,16 +58,18 @@ namespace Microsoft.OpenApi.CodeGeneration.Scaffolding
 
         public ScaffoldedModel ScaffoldModel(OpenApiOptions options)
         {
-            ScaffoldedModel model = new ScaffoldedModel();
-            model.Configuration = _configuration.ScaffoldModel(options);
-            model.Controller = _controller.ScaffoldModel(options);
-            model.Converter = _converter.ScaffoldModel(options);
-            model.Entity = _entity.ScaffoldModel(options);
-            model.Repository = _repository.ScaffoldModel(options);
-            model.ViewModel = _viewModel.ScaffoldModel(options);
-            model.Supervisor = _supervisor.ScaffoldModel(options);
-            model.Context = _context.ScaffoldModel(options);
-            return model;
+            return new ScaffoldedModel
+            {
+                Configuration = _configuration.ScaffoldModel(options),
+                Controller = _controller.ScaffoldModel(options),
+                Converter = _converter.ScaffoldModel(options),
+                Entity = _entity.ScaffoldModel(options),
+                Repository = _repository.ScaffoldModel(options),
+                RepoisitoryInterfaces = _repositoryInterface.ScaffoldModel(options),
+                ViewModel = _viewModel.ScaffoldModel(options),
+                Supervisor = _supervisor.ScaffoldModel(options),
+                Context = _context.ScaffoldModel(options)
+            };
         }
     }
 }

@@ -16,8 +16,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="openapi.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="openapi.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Projects\Sln\" />
     <Folder Include="Supervisor\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+  </ItemGroup>
 
 </Project>

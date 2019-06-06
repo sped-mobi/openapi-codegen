@@ -1,148 +1,107 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IndentedWriter.cs" company="sped.mobi">
-//     Copyright (c) 2019 Brad Marshall. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 
 namespace Microsoft.OpenApi.CodeGeneration
 {
-    /// <summary>
-    /// Text writer that handles complicated indentations with ease.
-    /// </summary>
     public class IndentedWriter : TextWriter
     {
         private bool _needIndent;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IndentedWriter"/> class.
-        /// </summary>
-        /// <param name="builder">The builder<see cref="StringBuilder"/></param>
-        /// <param name="indentString">The indentString<see cref="string"/></param>
         public IndentedWriter(StringBuilder builder, string indentString = "    ")
         {
             IndentString = indentString;
             InnerWriter = new StringWriter(builder);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IndentedWriter"/> class.
-        /// </summary>
-        /// <param name="writer">The writer<see cref="TextWriter"/></param>
-        /// <param name="indentString">The indentString<see cref="string"/></param>
         public IndentedWriter(TextWriter writer, string indentString = "    ")
         {
             IndentString = indentString;
             InnerWriter = writer;
         }
 
-        /// <summary>
-        /// Gets the Encoding
-        /// </summary>
         public override Encoding Encoding => Encoding.ASCII;
 
-        /// <summary>
-        /// Gets or sets the Indent
-        /// </summary>
         public int Indent { get; set; }
 
-        /// <summary>
-        /// Gets the IndentString
-        /// </summary>
         public string IndentString { get; }
 
-        /// <summary>
-        /// Gets the InnerWriter
-        /// </summary>
         public TextWriter InnerWriter { get; }
 
-        /// <summary>
-        /// The Close
-        /// </summary>
         public override void Close()
         {
             InnerWriter.Close();
         }
 
-        /// <summary>
-        /// The Flush
-        /// </summary>
         public override void Flush()
         {
             InnerWriter.Flush();
         }
 
-        /// <summary>
-        /// The OpenBlock
-        /// </summary>
-        /// <returns>The <see cref="IDisposable"/></returns>
         public IDisposable OpenBlock()
         {
             return new Block(this);
         }
 
-        /// <summary>
-        /// The PopIndent
-        /// </summary>
+        public IDisposable OpenBlockString(string expression)
+        {
+            return new BlockWithString(this, expression);
+        }
+
+        public IDisposable OpenBlockSemicolon()
+        {
+            return new BlockWithSemicolon(this);
+        }
+
+        public IDisposable OpenProjectBlock()
+        {
+            return new ProjectBlock(this);
+        }
+
+        public IDisposable OpenPropertyGroupBlock()
+        {
+            return new PropertyGroupBlock(this);
+        }
+
+        public IDisposable OpenItemGroupBlock()
+        {
+            return new ItemGroupBlock(this);
+        }
+
         public void PopIndent()
         {
             Indent--;
         }
 
-        /// <summary>
-        /// The PushIndent
-        /// </summary>
         public void PushIndent()
         {
             Indent++;
         }
 
-        /// <summary>
-        /// The Write
-        /// </summary>
-        /// <param name="value">The value<see cref="char"/></param>
         public override void Write(char value)
         {
             WriteIndentIfNeeded();
             InnerWriter.Write(value);
         }
 
-        /// <summary>
-        /// The Write
-        /// </summary>
-        /// <param name="value">The value<see cref="long"/></param>
         public override void Write(long value)
         {
             WriteIndentIfNeeded();
             InnerWriter.Write(value);
         }
 
-        /// <summary>
-        /// The Write
-        /// </summary>
-        /// <param name="value">The value<see cref="object"/></param>
         public override void Write(object value)
         {
             WriteIndentIfNeeded();
             InnerWriter.Write(value);
         }
 
-        /// <summary>
-        /// The Write
-        /// </summary>
-        /// <param name="value">The value<see cref="string"/></param>
         public override void Write(string value)
         {
             WriteIndentIfNeeded();
             InnerWriter.Write(value);
         }
 
-        /// <summary>
-        /// The WriteIndent
-        /// </summary>
         public void WriteIndent()
         {
             _needIndent = false;
@@ -152,19 +111,12 @@ namespace Microsoft.OpenApi.CodeGeneration
             }
         }
 
-        /// <summary>
-        /// The WriteLine
-        /// </summary>
         public override void WriteLine()
         {
             InnerWriter.WriteLine();
             _needIndent = true;
         }
 
-        /// <summary>
-        /// The WriteLine
-        /// </summary>
-        /// <param name="value">The value<see cref="char"/></param>
         public override void WriteLine(char value)
         {
             WriteIndentIfNeeded();
@@ -172,10 +124,6 @@ namespace Microsoft.OpenApi.CodeGeneration
             _needIndent = true;
         }
 
-        /// <summary>
-        /// The WriteLine
-        /// </summary>
-        /// <param name="value">The value<see cref="long"/></param>
         public override void WriteLine(long value)
         {
             WriteIndentIfNeeded();
@@ -183,10 +131,6 @@ namespace Microsoft.OpenApi.CodeGeneration
             _needIndent = true;
         }
 
-        /// <summary>
-        /// The WriteLine
-        /// </summary>
-        /// <param name="value">The value<see cref="object"/></param>
         public override void WriteLine(object value)
         {
             WriteIndentIfNeeded();
@@ -194,10 +138,6 @@ namespace Microsoft.OpenApi.CodeGeneration
             _needIndent = true;
         }
 
-        /// <summary>
-        /// The WriteLine
-        /// </summary>
-        /// <param name="value">The value<see cref="string"/></param>
         public override void WriteLine(string value)
         {
             if (_needIndent)
@@ -209,19 +149,19 @@ namespace Microsoft.OpenApi.CodeGeneration
             _needIndent = true;
         }
 
-        /// <summary>
-        /// The CloseBlockCore
-        /// </summary>
-        protected virtual void CloseBlockCore()
+        protected virtual void CloseBlockCore(bool semi = false)
         {
             PopIndent();
-            WriteLine("}");
+            WriteLine(semi ? "};" : "}");
         }
 
-        /// <summary>
-        /// The Dispose
-        /// </summary>
-        /// <param name="disposing">The disposing<see cref="bool"/></param>
+        protected virtual void CloseBlockCore(string expression)
+        {
+            PopIndent();
+            Write("}");
+            WriteLine(expression);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -230,18 +170,12 @@ namespace Microsoft.OpenApi.CodeGeneration
             }
         }
 
-        /// <summary>
-        /// The OpenBlockCore
-        /// </summary>
         protected virtual void OpenBlockCore()
         {
             WriteLine("{");
             PushIndent();
         }
 
-        /// <summary>
-        /// The WriteIndentIfNeeded
-        /// </summary>
         private void WriteIndentIfNeeded()
         {
             if (_needIndent)
@@ -250,32 +184,107 @@ namespace Microsoft.OpenApi.CodeGeneration
             }
         }
 
-        /// <summary>
-        /// Defines the <see cref="Block" />
-        /// </summary>
         private class Block : IDisposable
         {
-            /// <summary>
-            /// Defines the _writer
-            /// </summary>
             private readonly IndentedWriter _writer;
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Block"/> class.
-            /// </summary>
-            /// <param name="writer">The writer<see cref="IndentedWriter"/></param>
             public Block(IndentedWriter writer)
             {
                 _writer = writer;
                 _writer.OpenBlockCore();
             }
 
-            /// <summary>
-            /// The Dispose
-            /// </summary>
             public void Dispose()
             {
                 _writer.CloseBlockCore();
+            }
+        }
+
+        private class BlockWithString : IDisposable
+        {
+            private readonly IndentedWriter _writer;
+            private readonly string _expression;
+
+            public BlockWithString(IndentedWriter writer, string expression)
+            {
+                _writer = writer;
+                _expression = expression;
+                _writer.OpenBlockCore();
+            }
+
+            public void Dispose()
+            {
+                _writer.CloseBlockCore(_expression);
+            }
+        }
+
+        private class BlockWithSemicolon : IDisposable
+        {
+            private readonly IndentedWriter _writer;
+
+            public BlockWithSemicolon(IndentedWriter writer)
+            {
+                _writer = writer;
+                _writer.OpenBlockCore();
+            }
+
+            public void Dispose()
+            {
+                _writer.CloseBlockCore(true);
+            }
+        }
+
+        private class ProjectBlock : IDisposable
+        {
+            private readonly IndentedWriter _writer;
+
+            public ProjectBlock(IndentedWriter writer)
+            {
+                _writer = writer;
+                _writer.WriteLine("<Project>");
+                _writer.PushIndent();
+            }
+
+            public void Dispose()
+            {
+                _writer.PopIndent();
+                _writer.WriteLine("</Project>");
+            }
+        }
+
+        private class PropertyGroupBlock : IDisposable
+        {
+            private readonly IndentedWriter _writer;
+
+            public PropertyGroupBlock(IndentedWriter writer)
+            {
+                _writer = writer;
+                _writer.WriteLine("<PropertyGroup>");
+                _writer.PushIndent();
+            }
+
+            public void Dispose()
+            {
+                _writer.PopIndent();
+                _writer.WriteLine("</PropertyGroup>");
+            }
+        }
+
+        private class ItemGroupBlock : IDisposable
+        {
+            private readonly IndentedWriter _writer;
+
+            public ItemGroupBlock(IndentedWriter writer)
+            {
+                _writer = writer;
+                _writer.WriteLine("<ItemGroup>");
+                _writer.PushIndent();
+            }
+
+            public void Dispose()
+            {
+                _writer.PopIndent();
+                _writer.WriteLine("</ItemGroup>");
             }
         }
     }

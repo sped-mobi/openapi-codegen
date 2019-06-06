@@ -2,13 +2,18 @@
 {
     public interface IPathHelper
     {
-        string Configuration(string outputDir, string name);
-        string Controller(string outputDir, string name);
-        string Converter(string outputDir, string name);
-        string Entity(string outputDir, string name);
-        string Repository(string outputDir, string name);
-        string ViewModel(string outputDir, string name);
-        string Supervisor(string outputDir, string name);
-        string Context(string outputDir, string name);
+        string Configuration(string projectDir, string name);
+        string Controller(string projectDir, string name);
+        string Converter(string projectDir, string name);
+        string Entity(string projectDir, string name);
+        string Repository(string projectDir, string name);
+        string RepositoryInterface(string projectDir, string name);
+        string ViewModel(string projectDir, string name);
+        string Supervisor(string projectDir, string name);
+        string SupervisorInterface(string projectDir, string name);
+        string Context(string projectDir, string name);
+
+
+
     }
 }

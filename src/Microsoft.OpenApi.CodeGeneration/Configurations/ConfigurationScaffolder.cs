@@ -1,17 +1,4 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Controllers;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Entities;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
-using Microsoft.OpenApi.CodeGeneration.ViewModels;
-using Microsoft.OpenApi.CodeGeneration.Context;
-using Microsoft.OpenApi.CodeGeneration.Supervisor;
+﻿using System.Collections.Generic;
 
 namespace Microsoft.OpenApi.CodeGeneration.Configurations
 {
@@ -22,7 +9,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Configurations
             Generator = generator;
         }
 
-        protected IConfigurationGenerator Generator { get; } 
+        protected IConfigurationGenerator Generator { get; }
 
         public void Save(ConfigurationModel model)
         {
@@ -32,15 +19,18 @@ namespace Microsoft.OpenApi.CodeGeneration.Configurations
         public ConfigurationModel ScaffoldModel(OpenApiOptions options)
         {
             var model = new ConfigurationModel();
-            foreach(var kvp in options.Document.Components.Schemas)
+            List<ScaffoldedFile> list = new List<ScaffoldedFile>();
+            foreach (var kvp in options.Document.GetSchemas())
             {
                 var name = kvp.Key;
                 var schema = kvp.Value;
                 var code = Generator.WriteCode(schema, name, Dependencies.Namespace.Configuration(options.RootNamespace));
-                var path = Dependencies.PathHelper.Configuration(options.OutputDir, name);
+                var path = Dependencies.PathHelper.Configuration(options.DataProjectDir, name);
                 var file = new ScaffoldedFile { Code = code, Path = path };
-                model.Files.Add(file);
+                list.Add(file);
             }
+
+            model.Files = list;
             return model;
         }
     }

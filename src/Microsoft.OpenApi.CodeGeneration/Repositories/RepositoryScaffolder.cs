@@ -1,17 +1,5 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.CodeGeneration.Utilities;
-using Microsoft.OpenApi.CodeGeneration.Scaffolding;
-using Microsoft.OpenApi.CodeGeneration.Configurations;
-using Microsoft.OpenApi.CodeGeneration.Controllers;
-using Microsoft.OpenApi.CodeGeneration.Converters;
-using Microsoft.OpenApi.CodeGeneration.Entities;
-using Microsoft.OpenApi.CodeGeneration.ViewModels;
-using Microsoft.OpenApi.CodeGeneration.Context;
-using Microsoft.OpenApi.CodeGeneration.Supervisor;
 
 namespace Microsoft.OpenApi.CodeGeneration.Repositories
 {
@@ -22,7 +10,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
             Generator = generator;
         }
 
-        protected IRepositoryGenerator Generator { get; } 
+        protected IRepositoryGenerator Generator { get; }
 
         public void Save(RepositoryModel model)
         {
@@ -32,16 +20,25 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
         public RepositoryModel ScaffoldModel(OpenApiOptions options)
         {
             var model = new RepositoryModel();
-            foreach(var kvp in options.Document.Components.Schemas)
+            var list = new List<ScaffoldedFile>();
+            foreach (var kvp in options.Document.GetSchemas())
             {
                 var name = kvp.Key;
                 var schema = kvp.Value;
-                var code = Generator.WriteCode(schema, name, Dependencies.Namespace.Repository(options.RootNamespace));
-                var path = Dependencies.PathHelper.Repository(options.OutputDir, name);
-                var file = new ScaffoldedFile { Code = code, Path = path };
-                model.Files.Add(file);
+                ProcessClassFile(options, list, name, schema);
             }
+
+            model.Files = list;
             return model;
+        }
+
+
+        private void ProcessClassFile(OpenApiOptions options, List<ScaffoldedFile> list, string name, OpenApiSchema schema)
+        {
+            var classCode = Generator.WriteClassCode(schema, name, options);
+            var classPath = Dependencies.PathHelper.Repository(options.DataProjectDir, name);
+            var classFile = new ScaffoldedFile { Code = classCode, Path = classPath };
+            list.Add(classFile);
         }
     }
 }

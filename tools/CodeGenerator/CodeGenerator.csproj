@@ -12,11 +12,15 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
-
+  <ItemGroup>
+    <None Remove="openapi.json" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.CodeDom" Version="4.5.0" />
+    <ProjectReference Include="..\..\src\Microsoft.OpenApi.CodeGeneration\Microsoft.OpenApi.CodeGeneration.csproj" />
   </ItemGroup>
+
+
 
 
 </Project>
