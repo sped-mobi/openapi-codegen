@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DataProjectGenerator.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="DataProjectGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -22,16 +22,25 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                     WriteProperty("RootNamespace", options.RootNamespace);
                     WriteProperty("TargetFramework", "netcoreapp2.2");
                 }
+
                 WriteLine();
                 WriteSdkElement("Microsoft.NET.Sdk");
                 WriteLine();
                 using (OpenItemGroupBlock())
                 {
+                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.Design\" Version=\"2.2.4\" />");
+                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.Abstractions\" Version=\"2.2.4\" />");
+                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.SqlServer\" Version=\"2.2.3\" />");
+                    WriteLine("<PackageReference Include=\"Microsoft.Extensions.Logging\" Version=\"2.2.0\" />");
+                }
+
+                using (OpenItemGroupBlock())
+                {
                     WriteLine($"<ProjectReference Include=\"..\\{options.CoreProjectName}\\{options.CoreProjectName}.csproj\"/>");
                 }
             }
+
             return GetText();
         }
     }
 }
-

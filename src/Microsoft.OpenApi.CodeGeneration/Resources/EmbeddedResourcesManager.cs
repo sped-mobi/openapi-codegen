@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EmbeddedResourcesManager.cs" company="sped.mobi">
-//     Copyright © 2019 sped.mobi. All rights reserved.
+// <copyright file="EmbeddedResourcesManager.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -15,16 +15,14 @@ namespace Microsoft.OpenApi.CodeGeneration.Resources
     {
         private static Stream _openApi;
 
-
-        public static Stream OpenApi => _openApi ?? (_openApi = GetResourceStream("openapi.json"));
-
+        public static Stream OpenApi =>
+            _openApi ?? (_openApi = GetResourceStream("openapi.json"));
 
         private static Stream GetResourceStream(string resourceName)
         {
             return Assembly.GetExecutingAssembly().GetManifestResourceStream(
                 "Microsoft.OpenApi.CodeGeneration." + resourceName);
         }
-
 
         public static OpenApiDocument Build()
         {
@@ -42,7 +40,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Resources
             using (stream)
             {
                 var sr = new OpenApiStreamReader(_settings);
-
                 return sr.Read(stream, out var diagnostic);
             }
         }

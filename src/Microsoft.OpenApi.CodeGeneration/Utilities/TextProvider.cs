@@ -1,4 +1,10 @@
-﻿using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="TextProvider.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Text;
 
 namespace Microsoft.OpenApi.CodeGeneration.Utilities
 {
@@ -14,6 +20,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Utilities
                 {
                     _builder = new StringBuilder();
                 }
+
                 return _builder;
             }
         }

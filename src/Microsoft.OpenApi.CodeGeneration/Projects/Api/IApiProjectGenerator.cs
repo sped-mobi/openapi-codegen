@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IApiProjectGenerator.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="IApiProjectGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -19,7 +19,5 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
         string WriteAppSettingsDevelopmentJSONFile(OpenApiOptions options);
 
         string WriteServicesConfigurationCSFile(OpenApiOptions options);
-
-
     }
 }

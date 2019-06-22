@@ -1,16 +1,30 @@
 ﻿<Project>
   <PropertyGroup>   
     <NoWarn>$(NoWarn);NU5125;NU5105;NU5104;NU5111;NU5110;CS8002;EF1001;IDE0007;IDE0001</NoWarn>
-    <UseJetBrainsAnnotations Condition="'$(UseJetBrainsAnnotations)'==''">true</UseJetBrainsAnnotations>
+    <UseJetBrainsAnnotations Condition="'$(UseJetBrainsAnnotations)'==''">false</UseJetBrainsAnnotations>
     <JetBrainsAnnotationsPath>$(RepoRoot)eng\JetBrainsAnnotations.cs</JetBrainsAnnotationsPath>
   </PropertyGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.DotNet.Arcade.Sdk" />
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.3"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview5.19227.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0-preview5.19227.9 "/>
-  </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(MSBuildProjectName)'=='Microsoft.OpenApi.CodeGeneration'">
+      <ItemGroup>
+        <PackageReference Include="System.Collections" Version="4.3.0" />
+        <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+        <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview5.19227.1"  />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(MSBuildProjectName)'=='CodeGenerator'">
+      <ItemGroup>
+        <!--<PackageReference Include="System.Collections" Version="4.3.0" />
+        <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+        <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview5.19227.1"  />-->
+      </ItemGroup>
+    </When>
+  </Choose>
   
 
   <Import Project="eng\VisualStudio.targets" Condition="'$(UsingToolVsSDK)'=='true'" />

@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="EntityScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 
 namespace Microsoft.OpenApi.CodeGeneration.Entities
 {
@@ -26,7 +32,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
                 var schema = kvp.Value;
                 var code = Generator.WriteCode(schema, name, Dependencies.Namespace.Entity(options.RootNamespace));
                 var path = Dependencies.PathHelper.Entity(options.CoreProjectDir, name);
-                var file = new ScaffoldedFile { Code = code, Path = path };
+                var file = new ScaffoldedFile {Code = code, Path = path};
                 list.Add(file);
             }
 

@@ -1,4 +1,10 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// <copyright file="IndentedWriter.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.IO;
 using System.Text;
 
@@ -20,7 +26,8 @@ namespace Microsoft.OpenApi.CodeGeneration
             InnerWriter = writer;
         }
 
-        public override Encoding Encoding => Encoding.ASCII;
+        public override Encoding Encoding =>
+            Encoding.ASCII;
 
         public int Indent { get; set; }
 

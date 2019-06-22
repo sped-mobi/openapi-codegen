@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ConfigurationScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 
 namespace Microsoft.OpenApi.CodeGeneration.Configurations
 {
@@ -26,7 +32,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Configurations
                 var schema = kvp.Value;
                 var code = Generator.WriteCode(schema, name, Dependencies.Namespace.Configuration(options.RootNamespace));
                 var path = Dependencies.PathHelper.Configuration(options.DataProjectDir, name);
-                var file = new ScaffoldedFile { Code = code, Path = path };
+                var file = new ScaffoldedFile {Code = code, Path = path};
                 list.Add(file);
             }
 

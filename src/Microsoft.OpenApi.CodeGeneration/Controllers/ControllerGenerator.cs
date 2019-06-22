@@ -1,4 +1,10 @@
-﻿using Microsoft.OpenApi.Models;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ControllerGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Microsoft.OpenApi.Models;
 
 namespace Microsoft.OpenApi.CodeGeneration.Controllers
 {
@@ -7,17 +13,23 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
         public ControllerGenerator(GeneratorDependencies dependencies) : base(dependencies)
         {
         }
+
         public string WriteCode(OpenApiSchema schema, string name, string @namespace)
         {
             string defaultRoute = Dependencies.Document.Options.DefaultRoute;
             string rootNamespace = Dependencies.Document.Options.RootNamespace;
             string supervisorNamespace = Dependencies.Namespace.Supervisor(rootNamespace);
             string viewModelNamespace = Dependencies.Namespace.ViewModel(rootNamespace);
-
             Clear();
             GenerateFileHeader();
+            WriteLine("using System;");
+            WriteLine("using System.Collections.Generic;");
+            WriteLine("using System.Linq;");
+            WriteLine("using System.Threading.Tasks;");
             WriteLine("using Microsoft.AspNetCore.Mvc;");
+            WriteLine("using System.Threading;");
             WriteLine("using Newtonsoft.Json;");
+            WriteLine("using System.Diagnostics;");
             WriteLine($"using {supervisorNamespace};");
             WriteLine($"using {viewModelNamespace};");
             WriteLine();
@@ -30,7 +42,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                 string entityName = Dependencies.Namer.Entity(name);
                 string viewModelName = Dependencies.Namer.ViewModel(name);
                 string primaryKeyTypeName = Dependencies.Document.Options.PrimaryKeyTypeName;
-
                 string controllerName = Dependencies.Namer.Controller(name);
                 WriteLine($"[Route(\"{defaultRoute}\")]");
                 WriteLine($"public class {controllerName} : Controller");
@@ -53,8 +64,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                         WriteLine("try");
                         using (OpenBlock())
                         {
-                            WriteLine($"return new ObjectResult(await {supervisorFieldName}.GetAll{entityName}sAsync(ct))");
+                            WriteLine($"return new ObjectResult(await {supervisorFieldName}.GetAll{entityName}Async(ct));");
                         }
+
                         WriteLine("catch(Exception ex)");
                         using (OpenBlock())
                         {
@@ -65,7 +77,8 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                     WriteLine();
                     WriteLine("[HttpGet(\"{id}\")]");
                     WriteLine($"[Produces(typeof({viewModelName}))]");
-                    WriteLine($"public async Task<ActionResult<{viewModelName}>> Get({primaryKeyTypeName} id, CancellationToken ct = default)");
+                    WriteLine(
+                        $"public async Task<ActionResult<{viewModelName}>> Get({primaryKeyTypeName} id, CancellationToken ct = default)");
                     using (OpenBlock())
                     {
                         WriteLine("try");
@@ -78,18 +91,19 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                             PopIndent();
                             WriteLine("return Ok(entity);");
                         }
+
                         WriteLine("catch(Exception ex)");
                         using (OpenBlock())
                         {
                             WriteLine("return StatusCode(500, ex);");
                         }
                     }
-
 
                     WriteLine();
                     WriteLine("[HttpPost]");
-                    WriteLine($"[Produces(typeof({viewModelName})]");
-                    WriteLine($"public async Task<ActionResult<{viewModelName}>> Post({primaryKeyTypeName} id, [FromBody] {viewModelName} input, CancellationToken ct = default)");
+                    WriteLine($"[Produces(typeof({viewModelName}))]");
+                    WriteLine(
+                        $"public async Task<ActionResult<{viewModelName}>> Post({primaryKeyTypeName} id, [FromBody] {viewModelName} input, CancellationToken ct = default)");
                     using (OpenBlock())
                     {
                         WriteLine("try");
@@ -99,11 +113,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                             PushIndent();
                             WriteLine("return BadRequest();");
                             PopIndent();
-
                             WriteLine();
                             WriteLine($"return StatusCode(201, await {supervisorFieldName}.Add{entityName}Async(input, ct));");
-
                         }
+
                         WriteLine("catch(Exception ex)");
                         using (OpenBlock())
                         {
@@ -111,11 +124,11 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                         }
                     }
 
-
                     WriteLine();
                     WriteLine("[HttpPut(\"{id}\")]");
-                    WriteLine($"[Produces(typeof({viewModelName})]");
-                    WriteLine($"public async Task<ActionResult<{viewModelName}>> Post({primaryKeyTypeName} id, [FromBody] {viewModelName} input, CancellationToken ct = default)");
+                    WriteLine($"[Produces(typeof({viewModelName}))]");
+                    WriteLine(
+                        $"public async Task<ActionResult<{viewModelName}>> Put({primaryKeyTypeName} id, [FromBody] {viewModelName} input, CancellationToken ct = default)");
                     using (OpenBlock())
                     {
                         WriteLine("try");
@@ -125,23 +138,20 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                             PushIndent();
                             WriteLine("return BadRequest();");
                             PopIndent();
-
                             WriteLine();
                             WriteLine($"if (await {supervisorFieldName}.Get{entityName}ByIdAsync(id, ct) == null)");
                             PushIndent();
                             WriteLine("return NotFound();");
                             PopIndent();
-
                             WriteLine();
                             WriteLine($"if (await {supervisorFieldName}.Update{entityName}Async(input, ct))");
                             PushIndent();
-                            WriteLine("return OK(input);");
+                            WriteLine("return Ok(input);");
                             PopIndent();
-
                             WriteLine();
                             WriteLine("return StatusCode(500);");
-
                         }
+
                         WriteLine("catch(Exception ex)");
                         using (OpenBlock())
                         {
@@ -151,8 +161,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
 
                     WriteLine();
                     WriteLine("[HttpDelete(\"{id}\")]");
-                    WriteLine($"[Produces(typeof(void))]");
-                    WriteLine($"public async Task<ActionResult<{viewModelName}>> Get({primaryKeyTypeName} id, CancellationToken ct = default)");
+                    WriteLine("[Produces(typeof(void))]");
+                    WriteLine(
+                        $"public async Task<ActionResult<{viewModelName}>> Delete({primaryKeyTypeName} id, CancellationToken ct = default)");
                     using (OpenBlock())
                     {
                         WriteLine("try");
@@ -163,16 +174,15 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                             PushIndent();
                             WriteLine("return NotFound();");
                             PopIndent();
-
                             WriteLine();
-                            WriteLine($"if (await {supervisorFieldName}.Delete{entityName}Async(id, ct) == null)");
+                            WriteLine($"if (await {supervisorFieldName}.Delete{entityName}Async(id, ct))");
                             PushIndent();
                             WriteLine("return Ok();");
                             PopIndent();
-
                             WriteLine();
                             WriteLine("return StatusCode(500);");
                         }
+
                         WriteLine("catch(Exception ex)");
                         using (OpenBlock())
                         {
@@ -181,6 +191,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Controllers
                     }
                 }
             }
+
             return GetText();
         }
     }

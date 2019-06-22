@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="OpenApiExtensibleExtensions.cs" company="sped.mobi">
-//     Copyright © 2019 sped.mobi. All rights reserved.
+// <copyright file="OpenApiExtensibleExtensions.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -13,15 +13,13 @@ namespace Microsoft.OpenApi.CodeGeneration.Utilities
     {
         public const string ExtensionName = "x-codegen";
 
-
         public static string GetStringExtensionValue(this IOpenApiExtensible source, string property)
         {
             if (source.Extensions.TryGetValue(ExtensionName, out IOpenApiExtension value))
             {
                 if (value is OpenApiObject extensionObject)
                 {
-                    var anyValue = (OpenApiString)extensionObject[property];
-
+                    var anyValue = (OpenApiString) extensionObject[property];
                     return anyValue.Value;
                 }
             }
@@ -35,8 +33,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Utilities
             {
                 if (value is OpenApiObject extensionObject)
                 {
-                    var anyValue = (OpenApiBoolean)extensionObject[property];
-
+                    var anyValue = (OpenApiBoolean) extensionObject[property];
                     return anyValue.Value;
                 }
             }

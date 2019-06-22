@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="OpenApiDocumentV3.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="OpenApiDocumentV3.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -16,12 +16,9 @@ namespace Microsoft.OpenApi.CodeGeneration
         private readonly OpenApiDocument _document;
         private OpenApiOptions _options;
 
-
         public OpenApiDocumentV3() : this(EmbeddedResourcesManager.Build())
         {
-
         }
-
 
         public OpenApiDocumentV3(OpenApiDocument document)
         {

@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="IDataProjectScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Microsoft.OpenApi.CodeGeneration.Projects
 {
     public interface IDataProjectScaffolder
@@ -7,4 +13,3 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
         DataProjectModel ScaffoldModel(OpenApiOptions options);
     }
 }
-

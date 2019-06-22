@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CoreProjectGenerator.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="CoreProjectGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -22,13 +22,13 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                     WriteProperty("RootNamespace", options.RootNamespace);
                     WriteProperty("TargetFramework", "netcoreapp2.2");
                 }
+
                 WriteLine();
                 WriteSdkElement("Microsoft.NET.Sdk");
                 WriteLine();
-
             }
+
             return GetText();
         }
     }
 }
-

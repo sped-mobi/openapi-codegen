@@ -1,4 +1,10 @@
-﻿using Microsoft.OpenApi.Models;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ConverterGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Microsoft.OpenApi.Models;
 
 namespace Microsoft.OpenApi.CodeGeneration.Converters
 {
@@ -7,14 +13,20 @@ namespace Microsoft.OpenApi.CodeGeneration.Converters
         public ConverterGenerator(GeneratorDependencies dependencies) : base(dependencies)
         {
         }
+
         public string WriteCode(OpenApiSchema schema, string name, string @namespace)
         {
             string rootNamespace = Dependencies.Document.Options.RootNamespace;
             string entityNamespace = Dependencies.Namespace.Entity(rootNamespace);
             string viewModelNamespace = Dependencies.Namespace.ViewModel(rootNamespace);
-
             Clear();
             GenerateFileHeader();
+            WriteLine("using System;");
+            WriteLine("using System.Linq;");
+            WriteLine("using System.Threading;");
+            WriteLine("using System.Diagnostics;");
+            WriteLine("using System.Threading.Tasks;");
+            WriteLine("using System.Collections.Generic;");
             WriteLine($"using {entityNamespace};");
             WriteLine($"using {viewModelNamespace};");
             WriteLine();
@@ -24,7 +36,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Converters
                 string converterName = Dependencies.Namer.Converter(name);
                 string entityName = Dependencies.Namer.Entity(name);
                 string viewModelName = Dependencies.Namer.ViewModel(name);
-
                 WriteLine($"public static class {converterName}");
                 using (OpenBlock())
                 {
@@ -34,10 +45,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Converters
                         WriteLine($"return new {viewModelName}");
                         using (OpenBlockSemicolon())
                         {
-                            var properties = schema.GetAllPropertiesRecursive();
-                            foreach (var property in properties)
+                            foreach ((string key, OpenApiSchema value) in schema.GetSimpleProperties())
                             {
-                                WriteLine($"{property.Key} = entity.{property.Key},");
+                                WriteLine($"{key} = entity.{key},");
                             }
                         }
                     }
@@ -46,18 +56,21 @@ namespace Microsoft.OpenApi.CodeGeneration.Converters
                     WriteLine($"public static List<{viewModelName}> ConvertList(IEnumerable<{entityName}> entities)");
                     using (OpenBlock())
                     {
-                        WriteLine($"return entities.Select(entity =>");
+                        WriteLine("return entities.Select(e =>");
                         using (OpenBlockString(").ToList();"))
                         {
-                            var properties = schema.GetAllPropertiesRecursive();
-                            foreach (var property in properties)
+                            WriteLine($"var model = new {viewModelName}();");
+
+                            foreach ((string key, OpenApiSchema value) in schema.GetSimpleProperties())
                             {
-                                WriteLine($"{property.Key} = entity.{property.Key},");
+                                WriteLine($"model.{key} = e.{key};");
                             }
+                            WriteLine("return model;");
                         }
                     }
                 }
             }
+
             return GetText();
         }
     }

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiProjectScaffolder.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="ApiProjectScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -11,7 +11,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
 {
     public class ApiProjectScaffolder : AbstractScaffolder, IApiProjectScaffolder
     {
-        public ApiProjectScaffolder(IApiProjectGenerator generator, IControllerScaffolder controllerScaffolder, ScaffolderDependencies dependencies) : base(dependencies)
+        public ApiProjectScaffolder(IApiProjectGenerator generator,
+            IControllerScaffolder controllerScaffolder,
+            ScaffolderDependencies dependencies) : base(dependencies)
         {
             Generator = generator;
             ControllerScaffolder = controllerScaffolder;
@@ -39,28 +41,22 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                 ProjectFile =
                     CreateFile(Generator.WriteProjectFile(options),
                         Path.Combine(options.ApiProjectDir, options.ApiProjectName + ".csproj")),
-
                 StartupCSFile =
                     CreateFile(Generator.WriteStartupCSFile(options),
                         Path.Combine(options.ApiProjectDir, "Startup.cs")),
-
                 ProgramCSFile =
                     CreateFile(Generator.WriteProgramCSFile(options),
                         Path.Combine(options.ApiProjectDir, "Program.cs")),
-
                 ServicesConfigurationCSFile =
                     CreateFile(Generator.WriteServicesConfigurationCSFile(options),
                         Path.Combine(options.ApiProjectDir, "ServicesConfiguration.cs")),
-
                 AppSettingsDevelopmentJSONFile =
                     CreateFile(Generator.WriteAppSettingsDevelopmentJSONFile(options),
                         Path.Combine(options.ApiProjectDir, "appsettings.Development.json")),
-
                 AppSettingsJSONFile =
                     CreateFile(Generator.WriteAppSettingsJSONFile(options),
                         Path.Combine(options.ApiProjectDir, "appsettings.json"))
             };
-
             model.Controllers = ControllerScaffolder.ScaffoldModel(options).Files;
             return model;
         }

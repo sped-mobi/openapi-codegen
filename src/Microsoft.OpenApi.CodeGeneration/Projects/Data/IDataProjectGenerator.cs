@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="IDataProjectGenerator.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="IDataProjectGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -11,4 +11,3 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
         string WriteProjectFile(OpenApiOptions options);
     }
 }
-

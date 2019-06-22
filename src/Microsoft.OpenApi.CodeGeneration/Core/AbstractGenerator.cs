@@ -1,4 +1,10 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// <copyright file="AbstractGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 
 namespace Microsoft.OpenApi.CodeGeneration
 {
@@ -79,8 +85,6 @@ namespace Microsoft.OpenApi.CodeGeneration
             return _writer.OpenItemGroupBlock();
         }
 
-
-
         protected virtual void GenerateFileHeader()
         {
             WriteLine("//------------------------------------------------------------------------------");
@@ -95,12 +99,7 @@ namespace Microsoft.OpenApi.CodeGeneration
             WriteLine("// </auto-generated>");
             WriteLine("//------------------------------------------------------------------------------");
             WriteLine("//");
-            WriteLine("using System;");
-            WriteLine("using System.Linq;");
-            WriteLine("using System.Threading;");
-            WriteLine("using System.Diagnostics;");
-            WriteLine("using System.Threading.Tasks;");
-            WriteLine("using System.Collections.Generic;");
+
         }
     }
 }

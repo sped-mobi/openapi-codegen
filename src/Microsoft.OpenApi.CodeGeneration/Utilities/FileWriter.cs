@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="FileWriter.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.IO;
 
 namespace Microsoft.OpenApi.CodeGeneration
@@ -15,16 +21,22 @@ namespace Microsoft.OpenApi.CodeGeneration
         {
             string directory = Path.GetDirectoryName(path);
             if (!Directory.Exists(directory))
+            {
                 Directory.CreateDirectory(directory);
+            }
 
             if (File.Exists(path))
+            {
                 File.Delete(path);
+            }
         }
 
         public void WriteFiles(IEnumerable<ScaffoldedFile> files)
         {
             foreach (var file in files)
+            {
                 WriteFile(file);
+            }
         }
     }
 }

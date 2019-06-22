@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="Entity.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.OpenApi.CodeGeneration.Models
@@ -30,12 +36,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
 
         public string Name { get; }
 
-
         public Key FindPrimaryKey()
         {
             return _keys.Values.FirstOrDefault();
         }
-
 
         public Key SetPrimaryKey(Property property)
         {
@@ -45,9 +49,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
                 _keys.Add(property, key);
                 _primaryKey = key;
             }
+
             return _primaryKey;
         }
-
 
         public IEnumerable<Property> GetProperties()
         {
@@ -62,6 +66,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
                 _properties.Add(name, property);
                 return property;
             }
+
             return null;
         }
 

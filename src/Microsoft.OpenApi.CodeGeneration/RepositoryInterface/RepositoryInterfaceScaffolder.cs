@@ -1,11 +1,18 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RepositoryInterfaceScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using Microsoft.OpenApi.Models;
 
-namespace Microsoft.OpenApi.CodeGeneration.Repositories
+namespace Microsoft.OpenApi.CodeGeneration.RepositoryInterface
 {
     public class RepositoryInterfaceScaffolder : AbstractScaffolder, IRepositoryInterfaceScaffolder
     {
-        public RepositoryInterfaceScaffolder(ScaffolderDependencies dependencies, IRepositoryInterfaceGenerator generator) : base(dependencies)
+        public RepositoryInterfaceScaffolder(ScaffolderDependencies dependencies, IRepositoryInterfaceGenerator generator) :
+            base(dependencies)
         {
             Generator = generator;
         }
@@ -36,7 +43,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
         {
             var interfaceCode = Generator.WriteInterfaceCode(schema, name, options);
             var interfacePath = Dependencies.PathHelper.RepositoryInterface(options.CoreProjectDir, name);
-            var interfaceFile = new ScaffoldedFile { Code = interfaceCode, Path = interfacePath };
+            var interfaceFile = new ScaffoldedFile {Code = interfaceCode, Path = interfacePath};
             list.Add(interfaceFile);
         }
     }

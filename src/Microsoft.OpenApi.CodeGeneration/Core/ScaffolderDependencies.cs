@@ -1,4 +1,10 @@
-﻿using Microsoft.OpenApi.CodeGeneration.Utilities;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ScaffolderDepdendencies.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Microsoft.OpenApi.CodeGeneration.Utilities;
 
 namespace Microsoft.OpenApi.CodeGeneration
 {
@@ -17,8 +23,11 @@ namespace Microsoft.OpenApi.CodeGeneration
         }
 
         public INameHelper Namer { get; }
+
         public IPathHelper PathHelper { get; }
+
         public IFileWriter FileWriter { get; }
+
         public INamespaceHelper Namespace { get; }
     }
 }

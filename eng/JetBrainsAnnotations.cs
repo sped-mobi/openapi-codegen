@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="JetBrainsAnnotations.cs" company="sped.mobi">
-//     Copyright © 2019 sped.mobi. All rights reserved.
+// <copyright file="JetBrainsAnnotations.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -8,7 +8,11 @@ using System;
 
 namespace JetBrains.Annotations
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Delegate)]
+    [AttributeUsage(AttributeTargets.Method |
+                    AttributeTargets.Property |
+                    AttributeTargets.Field |
+                    AttributeTargets.Parameter |
+                    AttributeTargets.Delegate)]
     internal sealed class CanBeNullAttribute : Attribute
     {
     }
@@ -34,7 +38,7 @@ namespace JetBrains.Annotations
         Access = 1,
         Assign = 2,
         InstantiatedWithFixedConstructorSignature = 4,
-        InstantiatedNoFixedConstructorSignature = 8,
+        InstantiatedNoFixedConstructorSignature = 8
     }
 
     [Flags]
@@ -43,7 +47,7 @@ namespace JetBrains.Annotations
         Default = 1,
         Itself = Default, // 0x00000001
         Members = 2,
-        WithMembers = Members | Itself, // 0x00000003
+        WithMembers = Members | Itself // 0x00000003
     }
 
     [AttributeUsage(AttributeTargets.Parameter)]
@@ -56,7 +60,11 @@ namespace JetBrains.Annotations
     {
     }
 
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Delegate)]
+    [AttributeUsage(AttributeTargets.Method |
+                    AttributeTargets.Property |
+                    AttributeTargets.Field |
+                    AttributeTargets.Parameter |
+                    AttributeTargets.Delegate)]
     internal sealed class NotNullAttribute : Attribute
     {
     }
@@ -69,8 +77,7 @@ namespace JetBrains.Annotations
             FormatParameterName = formatParameterName;
         }
 
-        [NotNull]
-        public string FormatParameterName { get; }
+        [NotNull] public string FormatParameterName { get; }
     }
 
     [AttributeUsage(AttributeTargets.All)]
@@ -99,4 +106,3 @@ namespace JetBrains.Annotations
         public ImplicitUseTargetFlags TargetFlags { get; }
     }
 }
-

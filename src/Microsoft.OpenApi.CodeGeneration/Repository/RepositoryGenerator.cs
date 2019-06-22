@@ -1,6 +1,12 @@
-﻿using Microsoft.OpenApi.Models;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RepositoryGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace Microsoft.OpenApi.CodeGeneration.Repositories
+using Microsoft.OpenApi.Models;
+
+namespace Microsoft.OpenApi.CodeGeneration.Repository
 {
     public class RepositoryGenerator : AbstractGenerator, IRepositoryGenerator
     {
@@ -13,19 +19,21 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
             string repositoryNamespace = Dependencies.Namespace.Repository(options.RootNamespace);
             string entityNamespace = Dependencies.Namespace.Entity(options.RootNamespace);
             string contextNamespace = Dependencies.Namespace.Context(options.RootNamespace);
-
             Clear();
             GenerateFileHeader();
+            WriteLine("using System;");
+            WriteLine("using System.Threading;");
+            WriteLine("using System.Threading.Tasks;");
+            WriteLine("using System.Collections.Generic;");
+            WriteLine("using Microsoft.EntityFrameworkCore;");
             WriteLine($"using {entityNamespace};");
             WriteLine($"using {contextNamespace};");
             WriteLine();
             WriteLine($"namespace {repositoryNamespace}");
             using (OpenBlock())
             {
-
                 string className = Dependencies.Namer.Repository(name);
                 string entityName = Dependencies.Namer.Entity(name);
-
                 WriteLine($"public partial class {className} : I{className}");
                 using (OpenBlock())
                 {
@@ -38,17 +46,17 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
                     }
 
                     WriteLine();
-                    WriteLine($"private async Task<bool> {entityName}Exists({options.PrimaryKeyTypeName} id, CancellationToken ct = default) =>");
+                    WriteLine(
+                        $"private async Task<bool> {entityName}Exists({options.PrimaryKeyTypeName} id, CancellationToken ct = default) =>");
                     PushIndent();
                     WriteLine($"await _context.{entityName}.AnyAsync(a => a.{entityName}Id == id, ct);");
                     PopIndent();
-
                     WriteLine();
-                    WriteLine($"public async Task<List<{entityName}>> GetAllAsync(CancellationToken ct = default) => await _context.{entityName}.ToListAsync(ct);");
-
+                    WriteLine(
+                        $"public async Task<List<{entityName}>> GetAllAsync(CancellationToken ct = default) => await _context.{entityName}.ToListAsync(ct);");
                     WriteLine();
-                    WriteLine($"public async Task<{entityName}> GetByIdAsync({options.PrimaryKeyTypeName} id, CancellationToken ct = default) => await _context.{entityName}.FindAsync(id);");
-
+                    WriteLine(
+                        $"public async Task<{entityName}> GetByIdAsync({options.PrimaryKeyTypeName} id, CancellationToken ct = default) => await _context.{entityName}.FindAsync(id);");
                     WriteLine();
                     WriteLine($"public async Task<{entityName}> AddAsync({entityName} entity, CancellationToken ct = default)");
                     using (OpenBlock())
@@ -75,7 +83,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
                     WriteLine($"public async Task<bool> DeleteAsync({options.PrimaryKeyTypeName} id, CancellationToken ct = default)");
                     using (OpenBlock())
                     {
-                        WriteLine($"if (!await {entityName}Exists(entity.{entityName}Id, ct))");
+                        WriteLine($"if (!await {entityName}Exists(id, ct))");
                         PushIndent();
                         WriteLine("return false;");
                         PopIndent();
@@ -89,8 +97,8 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
                     WriteLine("public void Dispose() => _context.Dispose();");
                 }
             }
+
             return GetText();
         }
-
     }
 }

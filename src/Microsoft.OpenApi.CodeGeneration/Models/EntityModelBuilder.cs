@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EntityModelBuilder.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="EntityModelBuilder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -20,7 +20,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
             Converter = converter;
         }
 
-
         private EntityModel Model { get; } = new EntityModel();
 
         public EntityModel BuildModel(OpenApiOptions options)
@@ -31,7 +30,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
                 OpenApiSchema schema = kvp.Value;
                 Entity entity = Model.AddEntity(key);
                 if (entity != null)
+                {
                     Initialize(schema, entity, options);
+                }
             }
 
             return Model;
@@ -40,7 +41,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
         private void Initialize(OpenApiSchema schema, Entity entity, OpenApiOptions options)
         {
             if (entity.Initialized)
+            {
                 return;
+            }
+
             entity.Initialized = true;
             AddPrimaryKeyProperty(entity, options);
             foreach (var kvp in schema.Properties)
@@ -49,7 +53,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
                 //{
                 //    continue;
                 //}
-
                 string propertyName = CodeIdentifier.MakePascal(kvp.Key);
                 OpenApiSchema propertySchema = kvp.Value;
                 string propertyType = Converter.ConvertToType(propertySchema);
@@ -60,11 +63,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
             {
                 string propertyName = kvp.Key;
                 OpenApiSchema propertySchema = kvp.Value;
-
                 if (propertySchema.Type == "array")
                 {
                     Property property = entity.GetProperties().FirstOrDefault(p => p.Name == propertyName);
-
                     if (propertySchema.Items.Reference?.IsLocal == true)
                     {
                         string findName = propertySchema.Items.Reference.Id;
@@ -73,11 +74,8 @@ namespace Microsoft.OpenApi.CodeGeneration.Models
                         Initialize(openApiSchema, dependentEntity, options);
                         Key principalKey = entity.FindPrimaryKey();
                         Entity principalEntity = entity;
-
                         string foreignKeyName = principalKey.Property.Name;
-
                         dependentEntity.AddProperty(foreignKeyName, options.PrimaryKeyTypeName);
-
                         dependentEntity.AddProperty(principalEntity.Name, principalEntity.Name);
                     }
                 }

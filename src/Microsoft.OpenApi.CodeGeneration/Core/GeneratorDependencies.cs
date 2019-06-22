@@ -1,4 +1,10 @@
-﻿using Microsoft.OpenApi.CodeGeneration.Utilities;
+﻿// -----------------------------------------------------------------------
+// <copyright file="GeneratorDependencies.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Microsoft.OpenApi.CodeGeneration.Utilities;
 
 namespace Microsoft.OpenApi.CodeGeneration
 {
@@ -21,10 +27,15 @@ namespace Microsoft.OpenApi.CodeGeneration
         }
 
         public ITextProvider Provider { get; }
+
         public INameHelper Namer { get; }
+
         public INamespaceHelper Namespace { get; }
+
         public ISchemaConverter Schema { get; }
+
         public IPluralizer Pluralizer { get; }
+
         public IOpenApiDocument Document { get; }
     }
 }

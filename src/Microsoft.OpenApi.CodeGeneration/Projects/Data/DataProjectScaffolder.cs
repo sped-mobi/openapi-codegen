@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DataProjectScaffolder.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="DataProjectScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 using System.IO;
 using Microsoft.OpenApi.CodeGeneration.Configurations;
 using Microsoft.OpenApi.CodeGeneration.Context;
-using Microsoft.OpenApi.CodeGeneration.Repositories;
+using Microsoft.OpenApi.CodeGeneration.Repository;
 
 namespace Microsoft.OpenApi.CodeGeneration.Projects
 {
@@ -26,8 +26,11 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
         }
 
         protected IDataProjectGenerator Generator { get; }
+
         protected IConfigurationScaffolder Configuration { get; }
+
         protected IContextScaffolder Context { get; }
+
         protected IRepositoryScaffolder Repository { get; }
 
         public void Save(DataProjectModel model)
@@ -36,7 +39,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
             Dependencies.FileWriter.WriteFile(model.DataContext);
             Dependencies.FileWriter.WriteFiles(model.Configurations);
             Dependencies.FileWriter.WriteFiles(model.RepositoryClasses);
-
         }
 
         public DataProjectModel ScaffoldModel(OpenApiOptions options)
@@ -46,9 +48,8 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                 ProjectFile = CreateProjectFile(options),
                 DataContext = Context.ScaffoldModel(options).Class,
                 Configurations = Configuration.ScaffoldModel(options).Files,
-                RepositoryClasses = Repository.ScaffoldModel(options).Files,
+                RepositoryClasses = Repository.ScaffoldModel(options).Files
             };
-
             return model;
         }
 
@@ -62,4 +63,3 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
         }
     }
 }
-

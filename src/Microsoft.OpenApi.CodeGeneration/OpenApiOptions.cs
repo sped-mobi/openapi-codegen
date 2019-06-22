@@ -1,4 +1,10 @@
-﻿using System.IO;
+﻿// -----------------------------------------------------------------------
+// <copyright file="OpenApiOptions.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.IO;
 using Microsoft.OpenApi.CodeGeneration;
 using Microsoft.OpenApi.CodeGeneration.Utilities;
 using Microsoft.OpenApi.Models;
@@ -14,27 +20,35 @@ namespace Microsoft.OpenApi
 
         public IOpenApiDocument Document { get; }
 
-
         public string DefaultRoute =>
             Document?.GetStringExtensionValue("defaultRoute");
 
-        public string OutputDir => Document?.GetStringExtensionValue("outputDir");
+        public string OutputDir =>
+            Document?.GetStringExtensionValue("outputDir");
 
-        public string RootNamespace => Document?.GetStringExtensionValue("rootNamespace");
+        public string RootNamespace =>
+            Document?.GetStringExtensionValue("rootNamespace");
 
-        public string SupervisorClassName => Document?.GetStringExtensionValue("supervisorName");
+        public string SupervisorClassName =>
+            Document?.GetStringExtensionValue("supervisorName");
 
-        public string SupervisorInterfaceName => "I" + SupervisorClassName;
+        public string SupervisorInterfaceName =>
+            "I" + SupervisorClassName;
 
-        public string SupervisorParameterName => StringUtilities.MakeCamel(SupervisorClassName);
+        public string SupervisorParameterName =>
+            StringUtilities.MakeCamel(SupervisorClassName);
 
-        public string SupervisorFieldName => "_" + SupervisorParameterName;
+        public string SupervisorFieldName =>
+            "_" + SupervisorParameterName;
 
-        public string ContextClassName => Document?.GetStringExtensionValue("contextName");
+        public string ContextClassName =>
+            Document?.GetStringExtensionValue("contextName");
 
-        public string ContextInterfaceName => "I" + ContextClassName;
+        public string ContextInterfaceName =>
+            "I" + ContextClassName;
 
-        public string PrimaryKeyTypeName => Document?.GetStringExtensionValue("primaryKeyType");
+        public string PrimaryKeyTypeName =>
+            Document?.GetStringExtensionValue("primaryKeyType");
 
         public bool AddPrimaryKeyProperties =>
             Document?.GetBoolExtensionValue("addPrimaryKeyProperties") ?? false;
@@ -48,12 +62,14 @@ namespace Microsoft.OpenApi
         public string DatabaseName =>
             Document?.GetStringExtensionValue("databaseName");
 
-        public string SolutionName
-            => Document?.GetStringExtensionValue("solutionName");
+        public string SolutionName =>
+            Document?.GetStringExtensionValue("solutionName");
 
+        public string RootProjectName =>
+            Document?.GetStringExtensionValue("rootProjectName");
 
-        public string RootProjectName
-            => Document?.GetStringExtensionValue("rootProjectName");
+        public string RepositoryName =>
+            Document?.GetStringExtensionValue("repositoryName");
 
         public string ApiProjectName =>
             RootProjectName + ".Api";
@@ -76,11 +92,17 @@ namespace Microsoft.OpenApi
         public string ApiProjectFile =>
             Path.Combine(ApiProjectDir, ApiProjectName + ".csproj");
 
+        public string ApiProjectNamespace =>
+            RootNamespace + ".Api";
+
         public string CoreProjectDir =>
             Path.Combine(SolutionDir, "src", CoreProjectName);
 
         public string CoreProjectFile =>
             Path.Combine(CoreProjectDir, CoreProjectName + ".csproj");
+
+        public string CoreProjectNamespace =>
+            RootNamespace + ".Core";
 
         public string DataProjectDir =>
             Path.Combine(SolutionDir, "src", DataProjectName);
@@ -88,10 +110,7 @@ namespace Microsoft.OpenApi
         public string DataProjectFile =>
             Path.Combine(DataProjectDir, DataProjectName + ".csproj");
 
-
-
-
+        public string DataProjectNamespace =>
+            RootNamespace + ".Data";
     }
-
-
 }

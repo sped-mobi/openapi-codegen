@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ConverterScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 
 namespace Microsoft.OpenApi.CodeGeneration.Converters
 {
@@ -26,7 +32,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Converters
                 var schema = kvp.Value;
                 var code = Generator.WriteCode(schema, name, Dependencies.Namespace.Converter(options.RootNamespace));
                 var path = Dependencies.PathHelper.Converter(options.CoreProjectDir, name);
-                var file = new ScaffoldedFile { Code = code, Path = path };
+                var file = new ScaffoldedFile {Code = code, Path = path};
                 list.Add(file);
             }
 

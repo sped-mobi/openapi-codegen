@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiProjectGenerator.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="ApiProjectGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -24,15 +24,35 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                     WriteProperty("RootNamespace", options.RootNamespace);
                     WriteProperty("TargetFramework", "netcoreapp2.2");
                 }
+
                 WriteLine();
-                WriteSdkElement("Microsoft.NET.Sdk");
+                WriteSdkElement("Microsoft.NET.Sdk.Web");
                 WriteLine();
+                using (OpenItemGroupBlock())
+                {
+                    WriteLine("<Content Update=\"appsettings.json\" CopyToOutputDirectory=\"Always\"/>");
+                }
+
+                using (OpenItemGroupBlock())
+                {
+                    WriteLine("<PackageReference Include=\"Microsoft.AspNetCore.App\" />");
+                    WriteLine("<PackageReference Include=\"Microsoft.Extensions.Logging\" Version=\"2.2.0\" />");
+                    WriteLine("<PackageReference Include=\"Newtonsoft.Json\" Version=\"12.0.2\" />");
+                    WriteLine("<PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"4.0.1\" />");
+                }
+
+                using (OpenItemGroupBlock())
+                {
+                    WriteLine("<DotNetCliToolReference Include=\"Microsoft.VisualStudio.Web.CodeGeneration.Tools\" Version=\"2.0.0\" />");
+                }
+
                 using (OpenItemGroupBlock())
                 {
                     WriteLine($"<ProjectReference Include=\"..\\{options.DataProjectName}\\{options.DataProjectName}.csproj\"/>");
                     WriteLine($"<ProjectReference Include=\"..\\{options.CoreProjectName}\\{options.CoreProjectName}.csproj\"/>");
                 }
             }
+
             return GetText();
         }
 
@@ -40,8 +60,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
         {
             Clear();
             GenerateFileHeader();
+            WriteLine("using Microsoft.AspNetCore;");
+            WriteLine("using Microsoft.AspNetCore.Hosting;");
             WriteLine();
-            WriteLine($"namespace {options.RootNamespace}.Api");
+            WriteLine($"namespace {options.RootNamespace}");
             using (OpenBlock())
             {
                 WriteLine("public class Program");
@@ -59,6 +81,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                     PopIndent();
                 }
             }
+
             return GetText();
         }
 
@@ -70,9 +93,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
             WriteLine("using Microsoft.Extensions.Configuration;");
             WriteLine("using Microsoft.Extensions.DependencyInjection;");
             WriteLine("using Microsoft.Extensions.Logging;");
-            //WriteLine("using FluentValidation.AspNetCore;");
             WriteLine("using Swashbuckle.AspNetCore.Swagger;");
-            WriteLine("namespace Chinook.API");
+            WriteLine();
+            WriteLine($"namespace {options.RootNamespace}");
             using (OpenBlock())
             {
                 WriteLine("public class Startup");
@@ -98,10 +121,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                         WriteLine(".ConfigureSupervisor()");
                         WriteLine(".AddMiddleware()");
                         WriteLine(".AddCorsConfiguration()");
-                        WriteLine(".AddConnectionProvider(Configuration)");
+                        WriteLine(".AddConnectionProvider(Configuration);");
+
                         //WriteLine(".AddAppSettings(Configuration);");
                         PopIndent();
-
                         WriteLine("services.AddSwaggerGen(s => s.SwaggerDoc(\"v1\", new Info");
                         using (OpenBlockString("));"))
                         {
@@ -131,8 +154,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                     }
                 }
 
-                return GetText();
+
             }
+            return GetText();
         }
 
         public string WriteAppSettingsJSONFile(OpenApiOptions options)
@@ -180,30 +204,31 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
             Clear();
             string repositoryNamespace = Dependencies.Namespace.Repository(options.RootNamespace);
             string supervisorNamespace = Dependencies.Namespace.Supervisor(options.RootNamespace);
-
-            WriteLine($"using {repositoryNamespace};");
-            WriteLine($"using {supervisorNamespace};");
+            string contextNamespace = Dependencies.Namespace.Context(options.RootNamespace);
+            WriteLine("using Microsoft.EntityFrameworkCore;");
+            WriteLine("using Microsoft.Extensions.Configuration;");
             WriteLine("using Microsoft.Extensions.DependencyInjection;");
             WriteLine("using Microsoft.Extensions.Logging;");
             WriteLine("using Newtonsoft.Json;");
+            WriteLine($"using {repositoryNamespace};");
+            WriteLine($"using {supervisorNamespace};");
+            WriteLine($"using {contextNamespace};");
+            WriteLine();
             WriteLine($"namespace {options.RootNamespace}");
             using (OpenBlock())
             {
                 WriteLine("public static class ServicesConfiguration");
                 using (OpenBlock())
                 {
-
                     WriteLine();
-                    WriteLine("public static IServiceCollection AddConnectionProvider(this IServiceCollection services, IConfiguration configuration)");
+                    WriteLine(
+                        "public static IServiceCollection AddConnectionProvider(this IServiceCollection services, IConfiguration configuration)");
                     using (OpenBlock())
                     {
                         WriteLine("string connection = configuration.GetConnectionString(\"DefaultDbConnection\");");
                         WriteLine($"services.AddDbContextPool<{options.ContextClassName}>(options => options.UseSqlServer(connection));");
                         WriteLine("return services;");
                     }
-
-
-
 
                     WriteLine("public static IServiceCollection ConfigureRepositories(this IServiceCollection services)");
                     using (OpenBlock())
@@ -232,10 +257,11 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                                 {
                                     WriteLine();
                                 }
+
                                 PopIndent();
                             }
-
                         }
+
                         WriteLine("return services;");
                     }
 
@@ -249,31 +275,31 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                     WriteLine("public static IServiceCollection AddMiddleware(this IServiceCollection services)");
                     using (OpenBlock())
                     {
-                        WriteLine("services.AddMvc().AddJsonOptions(options => {");
-                        using (OpenBlock())
+                        WriteLine("services.AddMvc().AddJsonOptions(options =>");
+                        using (OpenBlockString(");"))
                         {
                             WriteLine("options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;");
-                            WriteLine("});");
-                            WriteLine("return services;");
+                            WriteLine("options.SerializerSettings.Formatting = Formatting.Indented;");
                         }
+
+                        WriteLine("return services;");
                     }
 
-                    WriteLine("public static IServiceCollection AddCorsConfiguration(this IServiceCollection services) =>");
-                    WriteLine("services.AddCors(options =>");
-                    using (OpenBlock())
-                    {
-                        WriteLine("options.AddPolicy(\"AllowAll\", new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()");
-                        PushIndent();
-                        WriteLine(".AllowAnyHeader()");
-                        WriteLine(".AllowAnyMethod()");
-                        WriteLine(".AllowAnyOrigin()");
-                        WriteLine(".AllowCredentials()");
-                        Write(".Build()");
-
-                    }
-
-                    WriteLine(");");
-                    PopIndent();
+                    WriteLine();
+                    WriteLine("        public static IServiceCollection AddCorsConfiguration(this IServiceCollection services) =>");
+                    WriteLine("            services.AddCors(options =>");
+                    WriteLine("            {");
+                    WriteLine("                options.AddPolicy(\"AllowAll\",");
+                    WriteLine("                    x =>");
+                    WriteLine("                    {");
+                    WriteLine("                        new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()");
+                    WriteLine("                            .AllowAnyHeader()");
+                    WriteLine("                            .AllowAnyMethod()");
+                    WriteLine("                            .AllowAnyOrigin()");
+                    WriteLine("                            .AllowCredentials()");
+                    WriteLine("                            .Build();");
+                    WriteLine("                    });");
+                    WriteLine("            });");
 
                     WriteLine();
                     WriteLine("public static IServiceCollection AddLogging(this IServiceCollection services)");
@@ -287,7 +313,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                         PopIndent();
                         WriteLine("return services;");
                     }
-
                 }
             }
 

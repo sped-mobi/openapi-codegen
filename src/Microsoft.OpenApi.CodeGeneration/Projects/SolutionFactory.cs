@@ -1,9 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SolutionFactory.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="SolutionFactory.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.IO;
 
 namespace Microsoft.OpenApi.CodeGeneration.Projects
@@ -23,19 +24,18 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
 
         public ISolutionScaffolder Solution { get; }
 
-        public void CreateSolution(bool openInExplorer = false)
+        public void CreateSolution(bool open = false)
         {
-
             Directory.CreateDirectory(Options.SolutionDir);
             Directory.CreateDirectory(Options.ApiProjectDir);
             Directory.CreateDirectory(Options.CoreProjectDir);
             Directory.CreateDirectory(Options.DataProjectDir);
-
-            var model = Solution.ScaffoldModel(Document.Options);
+            RepositoryCreator.CreateRepository(Options);
+            var model = Solution.ScaffoldModel(Options);
             Solution.Save(model);
-            if (openInExplorer)
+            if (open)
             {
-                System.Diagnostics.Process.Start("explorer.exe", Document.Options.SolutionDir);
+                Process.Start("explorer.exe", Document.Options.SolutionDir);
             }
         }
     }

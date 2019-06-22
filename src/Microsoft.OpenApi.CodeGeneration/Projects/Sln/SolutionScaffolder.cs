@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SolutionScaffolder.cs" company="Ollon, LLC">
-//     Copyright (c) 2017 Ollon, LLC. All rights reserved.
+// <copyright file="SolutionProjectScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -15,7 +15,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
             IApiProjectScaffolder apiProjectScaffolder,
             ICoreProjectScaffolder coreProjectScaffolder,
             IDataProjectScaffolder dataProjectScaffolder,
-
             ScaffolderDependencies dependencies) : base(dependencies)
         {
             Generator = generator;
@@ -57,4 +56,3 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
         }
     }
 }
-

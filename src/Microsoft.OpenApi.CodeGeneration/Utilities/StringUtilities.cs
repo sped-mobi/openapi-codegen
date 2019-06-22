@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="StringUtilities.cs" company="sped.mobi">
-//     Copyright © 2019 sped.mobi. All rights reserved.
+// <copyright file="StringUtilities.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -21,7 +21,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Utilities
             }
 
             char first = char.ToUpper(source[0]);
-
             return first + source.Substring(1);
         }
 
@@ -36,6 +35,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Utilities
             {
                 return source;
             }
+
             char first = char.ToLower(source[0]);
             return first + source.Substring(1);
         }

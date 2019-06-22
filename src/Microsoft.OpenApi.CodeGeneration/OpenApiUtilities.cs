@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="OpenApiModelUtilities.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.OpenApi.CodeGeneration;
@@ -37,7 +43,6 @@ namespace Microsoft.OpenApi
         //    };
         //}
 
-
         public static IDictionary<string, OpenApiSchema> GetSchemas(this IOpenApiDocument document)
         {
             return document.Components.Schemas.Where(x => !x.Value.GetBoolExtensionValue("skip"))
@@ -49,7 +54,6 @@ namespace Microsoft.OpenApi
             using (var fs = File.OpenRead(filePath))
             {
                 var sr = new OpenApiStreamReader(_readerSettings);
-
                 OpenApiDocument document = sr.Read(fs, out var diagnostic);
                 SetSchemaTitles(document);
                 return document;
@@ -67,10 +71,39 @@ namespace Microsoft.OpenApi
             }
         }
 
+        public static IDictionary<string, OpenApiSchema> GetNavigationProperties(this OpenApiSchema source)
+        {
+            var dictionary = new Dictionary<string, OpenApiSchema>();
+
+            foreach ((string name, OpenApiSchema schema) in source.GetAllPropertiesRecursive())
+            {
+                if (schema.IsArrayOrObject())
+                {
+                    dictionary[name] = schema;
+                }
+            }
+
+            return dictionary;
+        }
+
+        public static IDictionary<string, OpenApiSchema> GetSimpleProperties(this OpenApiSchema source)
+        {
+            var dictionary = new Dictionary<string, OpenApiSchema>();
+
+            foreach ((string name, OpenApiSchema schema) in source.GetAllPropertiesRecursive())
+            {
+                if (!schema.IsArrayOrObject())
+                {
+                    dictionary[name] = schema;
+                }
+            }
+
+            return dictionary;
+        }
+
         public static IDictionary<string, OpenApiSchema> GetAllPropertiesRecursive(this OpenApiSchema schema)
         {
             Dictionary<string, OpenApiSchema> dictionary = new Dictionary<string, OpenApiSchema>();
-
             foreach (var kvp in schema.Properties)
             {
                 string name = StringUtilities.MakePascal(kvp.Key);
@@ -82,10 +115,12 @@ namespace Microsoft.OpenApi
             {
                 ProcessSchemaList(schema.AllOf, dictionary);
             }
+
             if (schema.OneOf != null)
             {
                 ProcessSchemaList(schema.OneOf, dictionary);
             }
+
             if (schema.AnyOf != null)
             {
                 ProcessSchemaList(schema.AnyOf, dictionary);
@@ -101,7 +136,6 @@ namespace Microsoft.OpenApi
                 foreach (var kvp in schema.Properties)
                 {
                     string name = StringUtilities.MakePascal(kvp.Key);
-
                     if (!dictionary.ContainsKey(name))
                     {
                         dictionary.Add(name, kvp.Value);

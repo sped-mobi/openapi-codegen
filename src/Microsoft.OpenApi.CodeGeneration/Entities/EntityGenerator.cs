@@ -1,5 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="EntityGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using Microsoft.OpenApi.CodeGeneration.Utilities;
 using Microsoft.OpenApi.Models;
 
@@ -10,10 +15,13 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
         public EntityGenerator(GeneratorDependencies dependencies) : base(dependencies)
         {
         }
+
         public string WriteCode(OpenApiSchema schema, string name, string @namespace)
         {
             Clear();
             GenerateFileHeader();
+            WriteLine("using System;");
+            WriteLine("using System.Collections.Generic;");
             WriteLine();
             WriteLine($"namespace {@namespace}");
             using (OpenBlock())
@@ -23,15 +31,16 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
                 using (OpenBlock())
                 {
                     WriteLine($"public {className}()");
-                    IDictionary<string, OpenApiSchema> properties = schema.GetAllPropertiesRecursive();
+                    var simpleProperties = schema.GetSimpleProperties();
+                    var navigationProperties = schema.GetNavigationProperties();
+                    var allproperties = schema.GetAllPropertiesRecursive();
 
                     using (OpenBlock())
                     {
-                        foreach (var kvp in properties)
+                        foreach (var kvp in navigationProperties)
                         {
                             string n = StringUtilities.MakePascal(kvp.Key);
                             string t = Dependencies.Schema.ConvertToType(kvp.Value);
-
                             if (t.StartsWith("ICollection", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 t = t.Replace("ICollection", string.Empty);
@@ -42,16 +51,16 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
                         }
                     }
 
-                    foreach (var kvp in properties)
+                    foreach (var kvp in allproperties)
                     {
                         string n = StringUtilities.MakePascal(kvp.Key);
                         string t = Dependencies.Schema.ConvertToType(kvp.Value);
-
                         WriteLine();
                         WriteLine($"public {t} {n} {{ get; set; }}");
                     }
                 }
             }
+
             return GetText();
         }
     }

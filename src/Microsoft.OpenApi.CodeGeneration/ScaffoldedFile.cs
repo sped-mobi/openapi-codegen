@@ -1,4 +1,10 @@
-﻿namespace Microsoft.OpenApi.CodeGeneration
+﻿// -----------------------------------------------------------------------
+// <copyright file="ScaffoldedFile.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Microsoft.OpenApi.CodeGeneration
 {
     public class ScaffoldedFile
     {

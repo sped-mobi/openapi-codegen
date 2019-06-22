@@ -162,7 +162,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Internal
                     {
                         if (kind == Kind.Context || kind == Kind.Supervisor)
                         {
-                            WriteLine($"Dependencies.FileWriter.WriteFile(model.Class);");
+                            WriteLine($"Dependencies.FileWriter.WriteFile(model.File);");
                             WriteLine($"Dependencies.FileWriter.WriteFile(model.Interface);");
                         }
                         else
@@ -184,7 +184,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Internal
                             WriteLine($"classFile.Path = Dependencies.PathHelper.Context(options.OutputDir, options.ContextClassName);");
                             WriteLine("interfaceFile.Code = Generator.WriteInterfaceCode(options.Document, options.RootNamespace);");
                             WriteLine($"interfaceFile.Path = Dependencies.PathHelper.Context(options.OutputDir, options.ContextInterfaceName);");
-                            WriteLine("model.Class = classFile;");
+                            WriteLine("model.File = classFile;");
                             WriteLine("model.Interface = interfaceFile;");
                         }
                         else if (kind == Kind.Supervisor)
@@ -195,7 +195,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Internal
                             WriteLine($"classFile.Path = Dependencies.PathHelper.Supervisor(options.OutputDir, options.SupervisorClassName);");
                             WriteLine("interfaceFile.Code = Generator.WriteInterfaceCode(options.Document, options.RootNamespace);");
                             WriteLine($"interfaceFile.Path = Dependencies.PathHelper.Supervisor(options.OutputDir, options.SupervisorInterfaceName);");
-                            WriteLine("model.Class = classFile;");
+                            WriteLine("model.File = classFile;");
                             WriteLine("model.Interface = interfaceFile;");
                         }
                         else
@@ -373,7 +373,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Internal
                 {
                     if (kind == Kind.Context || kind == Kind.Supervisor)
                     {
-                        WriteLine($"public ScaffoldedFile Class {{ get; set; }}");
+                        WriteLine($"public ScaffoldedFile File {{ get; set; }}");
                         WriteLine();
                         WriteLine($"public ScaffoldedFile Interface {{ get; set; }}");
                     }

@@ -1,7 +1,13 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RepositoryScaffolder.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using Microsoft.OpenApi.Models;
 
-namespace Microsoft.OpenApi.CodeGeneration.Repositories
+namespace Microsoft.OpenApi.CodeGeneration.Repository
 {
     public class RepositoryScaffolder : AbstractScaffolder, IRepositoryScaffolder
     {
@@ -32,12 +38,11 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
             return model;
         }
 
-
         private void ProcessClassFile(OpenApiOptions options, List<ScaffoldedFile> list, string name, OpenApiSchema schema)
         {
             var classCode = Generator.WriteClassCode(schema, name, options);
             var classPath = Dependencies.PathHelper.Repository(options.DataProjectDir, name);
-            var classFile = new ScaffoldedFile { Code = classCode, Path = classPath };
+            var classFile = new ScaffoldedFile {Code = classCode, Path = classPath};
             list.Add(classFile);
         }
     }

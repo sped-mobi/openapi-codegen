@@ -1,6 +1,12 @@
-﻿using Microsoft.OpenApi.Models;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RepositoryInterfaceGenerator.cs" company="Brad Marshall">
+//     Copyright © 2019 Brad Marshall. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace Microsoft.OpenApi.CodeGeneration.Repositories
+using Microsoft.OpenApi.Models;
+
+namespace Microsoft.OpenApi.CodeGeneration.RepositoryInterface
 {
     public class RepositoryInterfaceGenerator : AbstractGenerator, IRepositoryInterfaceGenerator
     {
@@ -12,9 +18,12 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
         {
             string repositoryNamespace = Dependencies.Namespace.Repository(options.RootNamespace);
             string entityNamespace = Dependencies.Namespace.Entity(options.RootNamespace);
-
             Clear();
             GenerateFileHeader();
+            WriteLine("using System;");
+            WriteLine("using System.Threading;");
+            WriteLine("using System.Threading.Tasks;");
+            WriteLine("using System.Collections.Generic;");
             WriteLine($"using {entityNamespace};");
             WriteLine();
             WriteLine($"namespace {repositoryNamespace}");
@@ -22,26 +31,22 @@ namespace Microsoft.OpenApi.CodeGeneration.Repositories
             {
                 string className = Dependencies.Namer.Repository(name);
                 string entityName = Dependencies.Namer.Entity(name);
-
                 WriteLine($"public interface I{className} : IDisposable");
                 using (OpenBlock())
                 {
                     WriteLine();
                     WriteLine($"Task<List<{entityName}>> GetAllAsync(CancellationToken ct = default);");
-
                     WriteLine();
                     WriteLine($"Task<{entityName}> GetByIdAsync({options.PrimaryKeyTypeName} id, CancellationToken ct = default);");
-
                     WriteLine();
                     WriteLine($"Task<{entityName}> AddAsync({entityName} entity, CancellationToken ct = default);");
-
                     WriteLine();
                     WriteLine($"Task<bool> UpdateAsync({entityName} entity, CancellationToken ct = default);");
-
                     WriteLine();
                     WriteLine($"Task<bool> DeleteAsync({options.PrimaryKeyTypeName} id, CancellationToken ct = default);");
                 }
             }
+
             return GetText();
         }
     }
