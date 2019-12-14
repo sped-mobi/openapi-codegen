@@ -20,7 +20,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                 using (OpenPropertyGroupBlock())
                 {
                     WriteProperty("RootNamespace", options.RootNamespace);
-                    WriteProperty("TargetFramework", "netcoreapp2.2");
+                    WriteProperty("TargetFramework", "netcoreapp3.0");
                 }
 
                 WriteLine();

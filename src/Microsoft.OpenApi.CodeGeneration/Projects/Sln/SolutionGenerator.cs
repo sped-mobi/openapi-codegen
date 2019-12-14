@@ -26,9 +26,9 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
             string buildProjectGuid = GenerateGuid();
             WriteLine("Microsoft Visual Studio Solution File, Format Version 12.00");
             WriteLine("# Visual Studio Version 16");
-            WriteLine("VisualStudioVersion = 16.0.29001.49");
+            WriteLine("VisualStudioVersion = 16.0.29411.138");
             WriteLine("MinimumVisualStudioVersion = 10.0.40219.1");
-            WriteLine($"Project(\"{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}\") = \"Build\", \"Build\", \"{buildProjectGuid}\"");
+            WriteLine($"Project(\"{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}\") = \"build\", \"build\", \"{buildProjectGuid}\"");
             WriteLine("	ProjectSection(SolutionItems) = preProject");
             WriteLine("		.editorconfig = .editorconfig");
             WriteLine("		.gitignore = .gitignore");

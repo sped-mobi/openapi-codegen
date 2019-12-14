@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.CodeGeneration;
+﻿using System;
+using Microsoft.OpenApi.CodeGeneration;
 using Microsoft.OpenApi.CodeGeneration.Projects;
 using Microsoft.OpenApi.CodeGeneration.Scaffolding;
 
@@ -6,16 +7,16 @@ namespace CodeGenerator
 {
     public static class Program
     {
-        private const string OutDir = @"C:\stage\temp\EFCore\";
-        private const string RootNamespace = "Sped.Mobi";
-        private const string ContextName = "OpenLMSDbContext";
-        private const string SupervisorName = "OpenLMSSupervisor";
-        private const string FilePath = @"C:\stage\github\openapi-codegen\tools\CodeGenerator\openapi.json";
+
 
         public static void Main()
         {
+            Console.WriteLine("Starting...");
+
             ISolutionFactory factory = OpenApiServices.GetService<ISolutionFactory>();
             factory.CreateSolution(true);
+
+            Console.WriteLine("Complete!");
 
         }
 

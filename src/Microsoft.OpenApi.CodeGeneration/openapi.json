@@ -7,7 +7,7 @@
     "contextName": "EdFiCoreDbContext",
     "supervisorName": "EdFiCoreSupervisor",
     "primaryKeyType": "Guid",
-    "outputDir": "C:\\stage\\temp\\",
+    "outputDir": "S:\\stage\\temp\\",
     "addPrimaryKeyProperties": true,
     "addForeignKeyProperties": true,
     "addReverseNavigationProperties": true,
