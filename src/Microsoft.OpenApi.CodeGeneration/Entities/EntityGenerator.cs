@@ -56,6 +56,12 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
                         string n = StringUtilities.MakePascal(kvp.Key);
                         string t = Dependencies.Schema.ConvertToType(kvp.Value);
                         WriteLine();
+
+                        if (n == className)
+                        {
+                            n = char.ToLower(n[0]) + n.Substring(1);
+                        }
+
                         WriteLine($"public {t} {n} {{ get; set; }}");
                     }
                 }

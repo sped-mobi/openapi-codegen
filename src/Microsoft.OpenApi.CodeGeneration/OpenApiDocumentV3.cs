@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using Microsoft.OpenApi.CodeGeneration.Resources;
+using Microsoft.OpenApi.CodeGeneration.Utilities;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
 
@@ -133,6 +134,19 @@ namespace Microsoft.OpenApi.CodeGeneration
             {
                 _document.Extensions = value;
             }
+        }
+
+        public IList<string> GetSchemaKeys()
+        {
+            var list = new List<string>(Components.Schemas.Keys);
+            var nameList = new List<string>();
+            list.ForEach(str =>
+            {
+                string newName = StringUtilities.MakePascal(str);
+                if (!nameList.Contains(newName))
+                    nameList.Add(newName);
+            });
+            return nameList;
         }
     }
 }

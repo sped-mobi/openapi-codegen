@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -11,6 +12,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
 {
     public class SolutionFactory : ISolutionFactory
     {
+        private static readonly string _devEnv =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)
+                , @"\Microsoft Visual Studio\2019\Preview\Common7\IDE");
+
         public SolutionFactory(IOpenApiDocument document, ISolutionScaffolder solution)
         {
             Document = document;
@@ -24,7 +29,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
 
         public ISolutionScaffolder Solution { get; }
 
-        public void CreateSolution(bool open = false)
+        public void CreateSolution(PostAction postAction = PostAction.None)
         {
             Directory.CreateDirectory(Options.SolutionDir);
             Directory.CreateDirectory(Options.ApiProjectDir);
@@ -33,9 +38,19 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
             RepositoryCreator.CreateRepository(Options);
             var model = Solution.ScaffoldModel(Options);
             Solution.Save(model);
-            if (open)
+
+            switch (postAction)
             {
-                Process.Start("explorer.exe", Document.Options.SolutionDir);
+                case PostAction.OpenInExplorer:
+                    Process.Start("explorer.exe", Document.Options.SolutionDir);
+                    break;
+                case PostAction.OpenInVisualStudio:
+                    if (!File.Exists(_devEnv))
+                    {
+                        throw new Exception(string.Format("File '{0}' does not exist.", _devEnv));
+                    }
+                    Process.Start(_devEnv, '"' + Document.Options.SolutionFile + '"');
+                    break;
             }
         }
     }

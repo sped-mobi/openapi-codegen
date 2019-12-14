@@ -22,7 +22,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                 using (OpenPropertyGroupBlock())
                 {
                     WriteProperty("RootNamespace", options.RootNamespace);
-                    WriteProperty("TargetFramework", "netcoreapp2.2");
+                    WriteProperty("TargetFramework", "netcoreapp3.0");
                 }
 
                 WriteLine();
@@ -35,15 +35,15 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
 
                 using (OpenItemGroupBlock())
                 {
-                    WriteLine("<PackageReference Include=\"Microsoft.AspNetCore.App\" />");
-                    WriteLine("<PackageReference Include=\"Microsoft.Extensions.Logging\" Version=\"2.2.0\" />");
-                    WriteLine("<PackageReference Include=\"Newtonsoft.Json\" Version=\"12.0.2\" />");
-                    WriteLine("<PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"4.0.1\" />");
+                    WriteLine("<FrameworkReference Include=\"Microsoft.AspNetCore.App\" />");
+                    WriteLine("<PackageReference Include=\"Microsoft.Extensions.Logging\" Version=\"3.1.0\" />");
+                    WriteLine("<PackageReference Include=\"Newtonsoft.Json\" Version=\"12.0.3\" />");
+                    WriteLine("<PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"5.0.0-rc5\" />");
                 }
 
                 using (OpenItemGroupBlock())
                 {
-                    WriteLine("<DotNetCliToolReference Include=\"Microsoft.VisualStudio.Web.CodeGeneration.Tools\" Version=\"2.0.0\" />");
+                    WriteLine("<DotNetCliToolReference Include=\"Microsoft.VisualStudio.Web.CodeGeneration.Tools\" Version=\"2.0.4\" />");
                 }
 
                 using (OpenItemGroupBlock())
@@ -278,8 +278,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                         WriteLine("services.AddMvc().AddJsonOptions(options =>");
                         using (OpenBlockString(");"))
                         {
-                            WriteLine("options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;");
-                            WriteLine("options.SerializerSettings.Formatting = Formatting.Indented;");
+                            WriteLine("options.JsonSerializerSettings.WriteIndented = true;");
                         }
 
                         WriteLine("return services;");

@@ -1,13 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ISolutionService.cs" company="Brad Marshall">
+// <copyright file="SolutionFactory.cs" company="Brad Marshall">
 //     Copyright © 2019 Brad Marshall. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Microsoft.OpenApi.CodeGeneration.Projects
 {
-    public interface ISolutionFactory
+    public enum PostAction
     {
-        void CreateSolution(PostAction postAction);
+        None,
+        OpenInExplorer,
+        OpenInVisualStudio
     }
 }

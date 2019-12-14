@@ -20,7 +20,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                 using (OpenPropertyGroupBlock())
                 {
                     WriteProperty("RootNamespace", options.RootNamespace);
-                    WriteProperty("TargetFramework", "netcoreapp2.2");
+                    WriteProperty("TargetFramework", "netcoreapp3.0");
                 }
 
                 WriteLine();
@@ -28,9 +28,12 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                 WriteLine();
                 using (OpenItemGroupBlock())
                 {
-                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.Design\" Version=\"2.2.4\" />");
-                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.Abstractions\" Version=\"2.2.4\" />");
-                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.SqlServer\" Version=\"2.2.3\" />");
+                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.Design\" Version=\"3.1.0\">");
+                    WriteLine("  <PrivateAssets>all</PrivateAssets>");
+                    WriteLine("  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>");
+                    WriteLine("</PackageReference>");
+                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.Abstractions\" Version=\"3.1.0\" />");
+                    WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.SqlServer\" Version=\"3.1.0\" />");
                     WriteLine("<PackageReference Include=\"Microsoft.Extensions.Logging\" Version=\"2.2.0\" />");
                 }
 

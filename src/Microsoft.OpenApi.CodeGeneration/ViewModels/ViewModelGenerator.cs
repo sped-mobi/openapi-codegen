@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Linq;
 using Microsoft.OpenApi.CodeGeneration.Utilities;
 using Microsoft.OpenApi.Models;
 
@@ -19,7 +18,9 @@ namespace Microsoft.OpenApi.CodeGeneration.ViewModels
 
         public string WriteCode(OpenApiSchema schema, string name, string @namespace)
         {
-            var nameList = Dependencies.Document.Components.Schemas.Keys.ToList();
+            var nameList = Dependencies.Document.GetSchemaKeys();
+
+            string entityNamespace = Dependencies.Namespace.Entity(Dependencies.Document.Options.RootNamespace);
 
             Clear();
             GenerateFileHeader();
@@ -27,6 +28,7 @@ namespace Microsoft.OpenApi.CodeGeneration.ViewModels
             WriteLine("using System.Threading;");
             WriteLine("using System.Threading.Tasks;");
             WriteLine("using System.Collections.Generic;");
+            WriteLine($"using {entityNamespace};");
             WriteLine();
             WriteLine($"namespace {@namespace}");
             using (OpenBlock())
@@ -57,6 +59,11 @@ namespace Microsoft.OpenApi.CodeGeneration.ViewModels
                         if (nameList.Contains(t))
                         {
                             t = Dependencies.Namer.ViewModel(t);
+                        }
+
+                        if (n == className)
+                        {
+                            n = char.ToLower(n[0]) + n.Substring(1);
                         }
 
                         WriteLine();

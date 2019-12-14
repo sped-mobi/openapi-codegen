@@ -14,7 +14,7 @@ namespace CodeGenerator
             Console.WriteLine("Starting...");
 
             ISolutionFactory factory = OpenApiServices.GetService<ISolutionFactory>();
-            factory.CreateSolution(true);
+            factory.CreateSolution(PostAction.OpenInExplorer);
 
             Console.WriteLine("Complete!");
 

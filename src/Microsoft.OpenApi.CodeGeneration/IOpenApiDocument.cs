@@ -29,5 +29,7 @@ namespace Microsoft.OpenApi.CodeGeneration
         IList<OpenApiTag> Tags { get; set; }
 
         OpenApiExternalDocs ExternalDocs { get; set; }
+
+        IList<string> GetSchemaKeys();
     }
 }
