@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 
 namespace Microsoft.OpenApi.CodeGeneration
 {
+
+
     public interface IOpenApiDocument : IOpenApiExtensible
     {
         OpenApiOptions Options { get; }

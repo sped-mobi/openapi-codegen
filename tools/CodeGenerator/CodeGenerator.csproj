@@ -13,12 +13,38 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="openapi.json" />
+    <None Remove="opensalt.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="OpenSALT\openapi.json">
+      <Generator></Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Microsoft.OpenApi.CodeGeneration\Microsoft.OpenApi.CodeGeneration.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="OpenSALT\openapi.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>openapi.json</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EdFiCore\ed-fi-core.json">
+      <Generator></Generator>
+    </None>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 
 

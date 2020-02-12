@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd"/>
+	<xs:include schemaLocation="../iepCommonTypes.xsd"/>
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:complexType name="iepPlanAccommodationsListAccommodationApplicabiltyListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Applicability List </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> List of circumstances in which the accommodation or change to standards or practices will be applied.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applicability" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Applicability </elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001686</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001686</cedsURL>
+					</xs:appinfo>
+					<xs:documentation> Circumstances in which the accommodation or change to standards or practices will be applied.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepPlanAccommodationsListAccommodationType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Accommodation Type</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> The specific accommodation necessary for assessment or instruction </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iepCommonAccommodationType" name="accommodation" minOccurs="0"/>
+			<xs:element type="iepPlanAccommodationsListAccommodationApplicabiltyListType"
+				name="applicabilityList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- named type -->
+	<xs:complexType name="iepPlanAccommodationsListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> accommodation List </elementName>
+				<sifChar>O</sifChar>
+				<cedsId>000273</cedsId>
+				<cedsURL>https://ceds.ed.gov/element/000273</cedsURL>
+			</xs:appinfo>
+			<xs:documentation> List of accommodations to support effective learning
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iepPlanAccommodationsListAccommodationType" name="accommodation"
+				minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

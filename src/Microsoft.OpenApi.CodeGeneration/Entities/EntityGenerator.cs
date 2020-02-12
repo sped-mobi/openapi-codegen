@@ -41,7 +41,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
                         {
                             string n = StringUtilities.MakePascal(kvp.Key);
                             string t = Dependencies.Schema.ConvertToType(kvp.Value);
-                            if (t.StartsWith("ICollection", StringComparison.CurrentCultureIgnoreCase))
+                            if (!string.IsNullOrEmpty(t) && t.StartsWith("ICollection", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 t = t.Replace("ICollection", string.Empty);
                                 t = t.TrimStart('<');
@@ -51,6 +51,11 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
                         }
                     }
 
+                    var primaryKeyTypeName = Dependencies.Document.Options.PrimaryKeyTypeName;
+
+                    WriteLine($"public {primaryKeyTypeName} {className}ID {{ get; set; }}");
+
+
                     foreach (var kvp in allproperties)
                     {
                         string n = StringUtilities.MakePascal(kvp.Key);
@@ -59,7 +64,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
 
                         if (n == className)
                         {
-                            n = char.ToLower(n[0]) + n.Substring(1);
+                            n = StringUtilities.MakeCamel(n);
                         }
 
                         WriteLine($"public {t} {n} {{ get; set; }}");

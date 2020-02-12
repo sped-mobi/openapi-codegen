@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd"/>
+	<xs:include schemaLocation="../iepCommonTypes.xsd"/>
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:complexType name="iepEligibilityParticipantReportListParticipantReportType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Evaluation Report
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Reports and comments by participants in the eligibility study
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iepCommonAuthorizingPersonType" name="authorization" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Report Author
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Proved identity of report author
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="role" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Role
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Professional occupation category or relationship to student
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="OccupationalTherapist"/>
+						<xs:enumeration value="PhysicalTherapist"/>
+						<xs:enumeration value="SchoolNurse"/>
+						<xs:enumeration value="AdminDesignee"/>
+						<xs:enumeration value="DevelopmentalAdaptivePhysicalEducation"/>
+						<xs:enumeration value="Parent"/>
+						<xs:enumeration value="Student"/>
+						<xs:enumeration value="LeaRep"/>
+						<xs:enumeration value="GeneralEdTeacher"/>
+						<xs:enumeration value="SpecialEdTeacher"/>
+						<xs:enumeration value="SchoolPsychologist"/>
+						<xs:enumeration value="SchoolSocialWorker"/>
+						<xs:enumeration value="SpeechLanguagePathologist"/>
+						<xs:enumeration value="BilingualSpecialist"/>
+						<xs:enumeration value="Physician"/>
+						<xs:enumeration value="Other"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="explanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Explanation for choice of other or information refining category selection.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="procedures" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Procedures
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						What the participant did with the student
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="observations" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Observations
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						What the participant observed during evaluation
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="conclusions" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Conclusions
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Conclusions reached as a result of the evaluation
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- named type -->
+	<xs:complexType name="iepEligibilityParticipantReportListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Participant Reports
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Documentation produced by people who have participated in the eligibility determination
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iepEligibilityParticipantReportListParticipantReportType"
+				name="participantReport" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

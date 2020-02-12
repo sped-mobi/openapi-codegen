@@ -108,7 +108,14 @@ namespace Microsoft.OpenApi
             {
                 string name = StringUtilities.MakePascal(kvp.Key);
                 OpenApiSchema value = kvp.Value;
-                dictionary.Add(name, value);
+                if (!dictionary.TryGetValue(name, out OpenApiSchema outValue))
+                    dictionary.Add(name, value);
+
+                if (!dictionary.TryGetValue("Id", out OpenApiSchema idSchema))
+                {
+                    idSchema = new OpenApiSchema();
+                    idSchema.Type = "integer";
+                }
             }
 
             if (schema.AllOf != null)
@@ -125,6 +132,8 @@ namespace Microsoft.OpenApi
             {
                 ProcessSchemaList(schema.AnyOf, dictionary);
             }
+
+
 
             return dictionary;
         }

@@ -34,7 +34,6 @@ namespace Microsoft.OpenApi.CodeGeneration.Projects
                     WriteLine("</PackageReference>");
                     WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.Abstractions\" Version=\"3.1.0\" />");
                     WriteLine("<PackageReference Include=\"Microsoft.EntityFrameworkCore.SqlServer\" Version=\"3.1.0\" />");
-                    WriteLine("<PackageReference Include=\"Microsoft.Extensions.Logging\" Version=\"2.2.0\" />");
                 }
 
                 using (OpenItemGroupBlock())

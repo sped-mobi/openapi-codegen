@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+	<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:include schemaLocation="iepPlanAnnualGoalType.xsd" />
+	<xs:complexType name="iepPlanAnnualGoalListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Annual Goals List </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> List of goals to be sought for a special education student </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type='iepPlanAnnualGoalType' name="annualGoal" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Text;
 using Microsoft.OpenApi.CodeGeneration.Resources;
 using Microsoft.OpenApi.CodeGeneration.Utilities;
 using Microsoft.OpenApi.Interfaces;
@@ -138,7 +139,18 @@ namespace Microsoft.OpenApi.CodeGeneration
 
         public IList<string> GetSchemaKeys()
         {
+            StringBuilder builder = new StringBuilder();
+
             var list = new List<string>(Components.Schemas.Keys);
+            foreach (var item in list)
+            {
+                builder.Append("'");
+                builder.Append(StringUtilities.MakePascal(item));
+                builder.AppendLine("',");
+            }
+
+            var x = builder.ToString();
+
             var nameList = new List<string>();
             list.ForEach(str =>
             {

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+		<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+		<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+		<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+		<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<!-- end redundant declaration for SIF tool analysis -->
+
+	<xs:complexType name='iepEligibilityBackgroundConsentToEvaluateType'>
+		<xs:sequence>
+			<xs:element name="accepted" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Accepted </elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001726</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001726</cedsURL>
+
+					</xs:appinfo>
+					<xs:documentation>
+						Indication parent agreed to evaluate student.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:enumeration value="Yes"/>
+						<xs:enumeration value="No"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="identity" type="iepCommonAuthorizingPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Identity of Consenting Person
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId />
+						<cedsURL />
+
+					</xs:appinfo>
+					<xs:documentation>
+						Identity of Consenting Person
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityBackgroundReferralType'>
+		<xs:sequence>
+			<xs:element name="explanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Explanation of the Need for Evaluation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001483</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001483</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						The reason for the referral.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type='iepEligibilityBackgroundReferralReferrerType' name="referrer" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityBackgroundReferralReferrerType'>
+		<xs:sequence>
+			<xs:element name="identity" type="iepCommonAuthorizingPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Identity of Person Who Referred Student for Evaluation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Parent or official referring student for evaluation
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Date Referral to Evaluate was Made
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001481</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001481</cedsURL>
+
+					</xs:appinfo>
+					<xs:documentation>
+						The date of referral.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- named type -->
+	<xs:complexType name='iepEligibilityBackgroundType'>
+						<xs:annotation>
+							<xs:appinfo>
+								<elementName>
+									Background
+								</elementName>
+								<sifChar>O</sifChar>
+								<cedsId/>
+								<cedsURL/>
+							</xs:appinfo>
+							<xs:documentation>
+								Information and history establishing context of student evaluation for Special Education services
+							</xs:documentation>
+						</xs:annotation>
+		<xs:sequence>
+			<xs:element type='iepEligibilityBackgroundReferralType' name="referral" minOccurs="0" />
+			<xs:element name="history" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Explanation of Historical Factors Justifying Evaluation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Historical information significant to special education evaluation
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentPlacement" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Current Placement
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Description of the current placement of student
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parentObservations" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Parent Observations
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001732</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001732</cedsURL>
+
+					</xs:appinfo>
+					<xs:documentation>
+						Explanation of parent's observations of student’s characteristics and history used for determining eligibility.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type='iepEligibilityBackgroundConsentToEvaluateType' name="consentToEvaluation" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Consent to Evaluate
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Legal authorization to conduct evaluation
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

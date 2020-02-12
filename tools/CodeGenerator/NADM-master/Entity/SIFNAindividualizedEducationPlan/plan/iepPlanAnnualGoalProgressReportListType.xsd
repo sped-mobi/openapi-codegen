@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd"/>
+	<xs:include schemaLocation="../iepCommonTypes.xsd"/>
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:complexType
+		name="iepPlanAnnualGoalProgressReportListProgressReportMeasurementDataValuesListDataValueType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Data Value
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				A measurement of student performance
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="category" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Category
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Thing being measured
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Value
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Measurement
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType
+		name="iepPlanAnnualGoalProgressReportListProgressReportMeasurementDataValuesListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Data Value List
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Data pairs representing measurements of student performance relative to progress on this goal
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element
+				type="iepPlanAnnualGoalProgressReportListProgressReportMeasurementDataValuesListDataValueType"
+				name="dataValue" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepPlanAnnualGoalProgressReportListProgressReportMeasurementDataNamesType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Data Names
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Meaning of data values
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="categoryName" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Category Name
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Label that assigns meaning to the categories that were measured (eg, x-axis label)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="valueName" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Value Name
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Label that assigns meaning to a chart display of a measured value (eg, y-axis label)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepPlanAnnualGoalProgressReportListProgressReportMeasurementType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Progress Measurement
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Quantitative data supporting the student's progress evaluation
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="explanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Explanation of measurement process and importance of data that was measured.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element
+				type="iepPlanAnnualGoalProgressReportListProgressReportMeasurementDataNamesType"
+				name="dataNames" minOccurs="0"/>
+			<xs:element
+				type="iepPlanAnnualGoalProgressReportListProgressReportMeasurementDataValuesListType"
+				name="dataValuesList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepPlanAnnualGoalProgressReportListProgressReportType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Progress Report
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Progress reported at a specific time
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Service Plan Progress Report Description
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001700</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001700</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						A description of the progress made toward achievement of the student’s progress on annual goals and if the progress is sufficient to achieve the goals by the end of the individualized program service plan.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="iepPlanAnnualGoalProgressReportListProgressReportMeasurementType"
+				name="measurement" minOccurs="0"/>
+			<xs:element name="status" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Goal Status
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001702</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001702</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						Status toward achievement of the annual goal or short-term objectives.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:enumeration value="SatisfactoryProgress">
+							<xs:annotation>
+								<xs:appinfo>Satisfactory Progress is specified as the status toward achievement of the annual goal or short-term objectives.</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="UnsatisfactoryProgress">
+							<xs:annotation>
+								<xs:appinfo>Unsatisfactory Progress is specified as the status toward achievement of the annual goal or short-term objectives.</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="Completed">
+							<xs:annotation>
+								<xs:appinfo>Completed is specified as the status toward achievement of the annual goal or short-term objectives.</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="Other">
+							<xs:annotation>
+								<xs:appinfo>The status toward achievement of the annual goal or short-term objectives is in a category not yet defined in CEDS.</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="explanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Explanation for choice of other or information refining status determination.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Progress Report Date
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001699</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001699</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						The date parents are notified of the student’s progress on annual goals and if the progress is sufficient to achieve the goals by the end of the individualized program service plan.
+						</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identity" type="iepCommonAuthorizingPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Reporter Identity
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+
+					</xs:appinfo>
+					<xs:documentation>
+						Identity of Person Making the Report
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- named type -->
+	<xs:complexType name="iepPlanAnnualGoalProgressReportListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Progress Report List
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Overall progress toward achievement of the goal
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iepPlanAnnualGoalProgressReportListProgressReportType"
+				name="progressReport" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -6,13 +6,20 @@ namespace Microsoft.OpenApi.CodeGeneration.Utilities
     {
         public string ConvertToType(OpenApiSchema schema)
         {
+            if (schema == null)
+                return string.Empty;
+
             switch (schema.Type)
             {
                 case "array":
                     {
-                        if (!string.IsNullOrEmpty(Base(schema.Items.Reference.Id)))
+                        var reference = schema.Items.Reference;
+                        if (reference != null)
                         {
-                            return $"ICollection<{Base(schema.Items.Reference.Id)}>";
+                            if (!string.IsNullOrEmpty(reference.Id))
+                            {
+                                return $"ICollection<{Base(reference.Id)}>";
+                            }
                         }
 
                         string type = ConvertToType(schema.Items);

@@ -30,9 +30,10 @@ namespace Microsoft.OpenApi.CodeGeneration.Entities
             {
                 var name = kvp.Key;
                 var schema = kvp.Value;
-                var code = Generator.WriteCode(schema, name, Dependencies.Namespace.Entity(options.RootNamespace));
+                var @namespace = Dependencies.Namespace.Entity(options.RootNamespace);
+                var code = Generator.WriteCode(schema, name, @namespace);
                 var path = Dependencies.PathHelper.Entity(options.CoreProjectDir, name);
-                var file = new ScaffoldedFile {Code = code, Path = path};
+                var file = new ScaffoldedFile { Code = code, Path = path };
                 list.Add(file);
             }
 

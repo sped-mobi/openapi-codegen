@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+	<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<!-- end redundant declaration for SIF tool analysis -->
+	<!-- named type -->
+	<xs:complexType name='iepPlanEffectivePeriodType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Effective Period
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Dates specifying start and end of the plan's implementation period
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="start" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Individualized Program Service Plan Date
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001236</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/1236</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						The year, month and day on which the status of the service plan for a child is established or significantly altered.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="end" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Individualized Program Service Plan End Date
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001683</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001683</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						The year, month and day on which the status of the service plan for a child effectively ends.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="evaluationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							End
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Evaluation Date
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

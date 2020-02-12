@@ -1,0 +1,17 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <PackageDescription>$(Description)</PackageDescription>
+    <PackageReleaseNotes>$(PackageDescription)</PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <Sdk Name="Microsoft.NET.Sdk" />
+
+  <PropertyGroup> 
+    <RootNamespace>Microsoft.OpenApi</RootNamespace>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

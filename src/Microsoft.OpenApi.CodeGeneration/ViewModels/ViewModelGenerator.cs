@@ -34,10 +34,15 @@ namespace Microsoft.OpenApi.CodeGeneration.ViewModels
             using (OpenBlock())
             {
                 string className = Dependencies.Namer.ViewModel(name);
+                string entityName = Dependencies.Namer.Entity(name);
                 WriteLine($"public partial class {className}");
                 using (OpenBlock())
                 {
+                    var primaryKeyTypeName = Dependencies.Document.Options.PrimaryKeyTypeName;
                     var properties = schema.GetAllPropertiesRecursive();
+
+                    WriteLine($"public {primaryKeyTypeName} {entityName}ID {{ get; set; }}");
+
                     foreach (var kvp in properties)
                     {
                         string n = StringUtilities.MakePascal(kvp.Key);
@@ -48,7 +53,7 @@ namespace Microsoft.OpenApi.CodeGeneration.ViewModels
                             string newItemType = null;
                             string temp = t;
                             originalItemType = temp.Substring(12).TrimEnd('>');
-                            var keys = Dependencies.Document.Components.Schemas.Keys;
+                            var keys = Dependencies.Document.GetSchemaKeys();
                             if (keys.Contains(originalItemType))
                             {
                                 newItemType = Dependencies.Namer.ViewModel(originalItemType);

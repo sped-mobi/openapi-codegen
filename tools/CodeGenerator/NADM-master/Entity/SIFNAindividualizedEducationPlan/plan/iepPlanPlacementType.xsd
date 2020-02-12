@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd"/>
+	<xs:include schemaLocation="../iepCommonTypes.xsd"/>
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:include schemaLocation="iepPlanPlacementTransportationType.xsd"/>
+	<xs:include schemaLocation="iepPlanPlacementLeastRestrictiveEnvironmentType.xsd"/>
+	<xs:include schemaLocation="iepPlanPlacementScheduleModificationType.xsd"/>
+	<!-- named type -->
+	<xs:complexType name="iepPlanPlacementType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Placement </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Physical location where special education will take place </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="environmentForSchoolAge" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>  Environment for School Age </elementName>
+						<sifChar>O</sifChar>
+						<cedsId>000535</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/000535</cedsURL>
+					</xs:appinfo>
+					<xs:documentation> The setting in which children ages 6 through 21, receive special education and related services. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:enumeration value="RC80">
+							<xs:annotation>
+								<xs:appinfo>Inside regular class 80% or more of the day</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="RC79TO40">
+							<xs:annotation>
+								<xs:appinfo>Inside regular class 40% through 79% of the day</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="RC39">
+							<xs:annotation>
+								<xs:appinfo>Inside regular class less than 40% of the day</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="SS">
+							<xs:annotation>
+								<xs:appinfo>Separate school</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="RF">
+							<xs:annotation>
+								<xs:appinfo>Residential facility</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="HH">
+							<xs:annotation>
+								<xs:appinfo>Homebound/hospital</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="CF">
+							<xs:annotation>
+								<xs:appinfo>Correctional facility</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="PPPS">
+							<xs:annotation>
+								<xs:appinfo>Parentally placed in private school</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+			
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="environmentForEarlyChildhood" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>  Environment for Early Childhood </elementName>
+						<sifChar>O</sifChar>
+						<cedsId>000559</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/000559</cedsURL>
+					</xs:appinfo>
+					<xs:documentation> The program in which children ages 3 through 5 attend and in which these children receive special education and related services. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:enumeration value="REC09YOTHLOC"/>
+						<xs:enumeration value="REC10YOTHLOC"/>
+						<xs:enumeration value="REC09YSVCS"/>
+						<xs:enumeration value="REC10YSVCS"/>
+						<xs:enumeration value="SC"/>
+						<xs:enumeration value="SS"/>
+						<xs:enumeration value="RF"/>
+						<xs:enumeration value="H"/>
+						<xs:enumeration value="SPL"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="placementRationale" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Placement Rationale </elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001704</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001704</cedsURL>
+					</xs:appinfo>
+					<xs:documentation> The rationale for the placement decision and if applicable, an explanation of the extent, if any, to which the child will not participate with nondisabled children in the regular class and in the activities described in paragraph (a)(4) of CFR. §300.320. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="iepPlanPlacementScheduleModificationType" name="scheduleModification"
+				minOccurs="0"/>
+			<xs:element type="iepPlanPlacementTransportationType" name="transportation"
+				minOccurs="0" maxOccurs="1"/>
+			<xs:element type="iepPlanPlacementLeastRestrictiveEnvironmentType"
+				name="leastRestrictiveEnvironment" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

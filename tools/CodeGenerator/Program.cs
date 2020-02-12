@@ -7,13 +7,14 @@ namespace CodeGenerator
 {
     public static class Program
     {
-
+        private const string FilePath = @"S:\web\openapi-codegen\tools\CodeGenerator\OpenSALT\openapi.json";
 
         public static void Main()
         {
             Console.WriteLine("Starting...");
 
-            ISolutionFactory factory = OpenApiServices.GetService<ISolutionFactory>();
+            var services = new OpenApiCommandLineServices(FilePath);
+            ISolutionFactory factory = services.GetService<ISolutionFactory>();
             factory.CreateSolution(PostAction.OpenInExplorer);
 
             Console.WriteLine("Complete!");

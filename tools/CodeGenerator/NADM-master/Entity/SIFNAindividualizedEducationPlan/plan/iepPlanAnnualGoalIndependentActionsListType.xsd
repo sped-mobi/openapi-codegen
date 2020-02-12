@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd"/>
+	<xs:include schemaLocation="../iepCommonTypes.xsd"/>
+	<!-- end redundant declaration for SIF tool analysis -->
+	<!-- named type -->
+	<xs:complexType name="iepPlanAnnualGoalIndependentActionsListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Independent Actions List
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Activities or actions to be accomplished outside of a service context
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="independentAction" type="xs:normalizedString" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Independent Action
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Activity or action to be accomplished outside of a service context
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+	<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:include schemaLocation="iepPlanAnnualGoalGoalType.xsd" />
+	<xs:include schemaLocation="iepPlanAnnualGoalMeasurableObjectiveListType.xsd" />
+	<xs:include schemaLocation="iepPlanAnnualGoalIndependentActionsListType.xsd" />
+	<xs:include schemaLocation="iepPlanAnnualGoalServicesListType.xsd" />
+	<xs:include schemaLocation="iepPlanAnnualGoalCoursesListType.xsd" />
+	<xs:include schemaLocation="iepPlanAnnualGoalProgressReportListType.xsd" />
+	<!-- SHARED TYPE -->
+	<xs:complexType name="iepPlanAnnualGoalListParentAcceptanceType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Parent Acceptance Type
+				</elementName>
+				<events>no</events>
+				<isSIFObject>yes</isSIFObject>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Simple Yes/No and explanation for indicating assent or rejection
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="accepted" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Authorization Acceptance Indicator
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001721</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001721</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						Indicates authorizer agreement to a document or plan, such as plan for delivery of student services, program, or improvement plan.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="Yes"/>
+						<xs:enumeration value="No"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="explanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Decision Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001722</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001722</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						Authorizer's explanation regarding the authorization decision.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepPlanAnnualGoalType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Annual Goal </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Documentation of an annual goal to be achieved by a special education student
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="xs:normalizedString" name="currentStatus" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Goal Status
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001703</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001703</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						Description of status toward achievement of the annual goal or short-term objectives.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type='iepPlanAnnualGoalGoalType' name="goalType" minOccurs="0" />
+			<xs:element type='iepPlanAnnualGoalMeasurableObjectiveListType' name="measurableObjectiveList" minOccurs="0" />
+			<xs:element type='iepPlanAnnualGoalIndependentActionsListType' name="independentActionsList" minOccurs="0" />
+			<xs:element type='iepPlanAnnualGoalServicesListType' name="servicesList" minOccurs="0" />
+			<xs:element type='iepPlanAnnualGoalCoursesListType' name="coursesList" minOccurs="0" />
+			<xs:element type='iepPlanAnnualGoalProgressReportListType' name="progressReportList" minOccurs="0" />
+			<xs:element type="iepPlanAnnualGoalListParentAcceptanceType" name="parentAcceptance" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Parent Acceptance of Goal
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Parental agreement (or disagreement) with working toward this goal
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

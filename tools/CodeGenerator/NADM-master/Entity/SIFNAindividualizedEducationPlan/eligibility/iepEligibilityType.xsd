@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+	<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:include schemaLocation="iepEligibilityBackgroundType.xsd" />
+	<xs:include schemaLocation="iepEligibilityEvaluationResultListType.xsd" />
+	<xs:include schemaLocation="iepEligibilityIdeaDisabilityType.xsd" />
+	<xs:include schemaLocation="iepEligibilityParticipantReportListType.xsd" />
+	<!-- local parent type -->
+	<xs:complexType name="iepEligibilityType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>Eligibility</elementName>
+				<events>no</events>
+				<isSIFObject>yes</isSIFObject>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Information about a student's need and eligibility for special education services.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gSIF_BaseType">
+				<xs:sequence>
+					<xs:element type='iepEligibilityBackgroundType' name="background" minOccurs="0" maxOccurs="1" />
+					<xs:element type='iepEligibilityEvaluationResultListType' name="evaluationResultList" minOccurs="0" />
+					<xs:element type='iepEligibilityIdeaDisabilityType' name="ideaDisability" minOccurs="0" maxOccurs="1" />
+					<xs:element type='iepEligibilityParticipantReportListType' name="eligibilityParticipantReportList" minOccurs="0" />
+					<xs:element name="lifecyclePurpose" nillable="true" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>
+								<elementName>IEP Eligibility Evaluation Type</elementName>
+								<sifChar>O</sifChar>
+								<cedsId>001728</cedsId>
+								<cedsURL>https://ceds.ed.gov/element/001728</cedsURL>
+							</xs:appinfo>
+							<xs:documentation>Purpose within the IEP lifecycle for which the eligibility evaluation is conducted.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:normalizedString">
+								<xs:enumeration value="Initial">
+									<xs:annotation>
+										<xs:appinfo>Initial is the purpose within the IEP lifecycle for which the eligibility evaluation is conducted.</xs:appinfo>
+									</xs:annotation>
+								</xs:enumeration>
+								
+								<xs:enumeration value="Reevaluation">
+									<xs:annotation>
+										<xs:appinfo>Reevaluation is the purpose within the IEP lifecycle for which the eligibility evaluation is conducted.</xs:appinfo>
+									</xs:annotation>
+								</xs:enumeration>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="determination" type="xs:normalizedString" minOccurs="0" >
+						<xs:annotation>
+							<xs:appinfo>
+								<elementName>
+									Eligibility Determination
+								</elementName>
+								<sifChar>O</sifChar>
+								<cedsId/>
+								<cedsURL/>
+							</xs:appinfo>
+							<xs:documentation>
+								Explanation for how the student's condition meets the criteria for disability.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="identity" type="iepCommonAuthorizingPersonType" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>
+								<elementName>
+									Identity of Determining Person
+								</elementName>
+								<sifChar>O</sifChar>
+								<cedsId />
+								<cedsURL />
+
+							</xs:appinfo>
+							<xs:documentation>
+								Identity of Person Making the Determination
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

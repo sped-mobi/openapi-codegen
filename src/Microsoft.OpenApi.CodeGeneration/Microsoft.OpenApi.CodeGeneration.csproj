@@ -16,16 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="openapi.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="openapi.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Supervisor\" />
   </ItemGroup>
-
 
 </Project>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+	<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:complexType name="iepTransmitPermissionJustificationType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Transmit Permission Justification </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Explanation of the reason that sending the IEP was permitted </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="authorizingParent" type="iepCommonAuthorizingPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Permitting Parent </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Proved identity of parent giving transmit permission IEP
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="otherJustification" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Other Justification for Permission
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Explanation of reason other than parent authorization that permission was given to transmit IEP.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepTransmitPermissionDestinationType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Transmit Permission Destination </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Person or organization that is the intended recipient </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lea" type="iepCommonLeaRefIdPointerType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Educational Agency </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Pointer to school district or other Local Educational Agency that needs access to IEP
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="school" type="iepCommonSchoolRefIdPointerType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> School </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Pointer to school or building that needs access to IEP
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceProvider" type="iepCommonServiceProviderType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Service Provider </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Service provider that needs access to IEP
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="other" type="iepCommonExternalPartyType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Other Recipient </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Other person or organization (eg, court, prison, government) that needs access to IEP
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepTransmitPermissionPurposeType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Transmit Permission Purpose </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Reason that the IEP was sent </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="standardPurpose" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Standard Transmit Purpose </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Intended purpose for sending the IEP
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:enumeration value="report">
+							<xs:annotation>
+								<xs:appinfo>For information purposes</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+						
+						<xs:enumeration value="service">
+							<xs:annotation>
+								<xs:appinfo>To help the recipient serve the student better</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+						
+						<xs:enumeration value="transfer">
+							<xs:annotation>
+								<xs:appinfo>The IEP is being handed over to the recipient.</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="otherPurpose" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Other Purpose
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Intended purpose for sending IEP
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepTransmitPermissionType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Transmit Permission </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Information that justifies the sending of the IEP to a destination </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="authorizingOfficial" type="iepCommonAuthorizingPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Permitting Official </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Proved identity of official authorizing transmit permission IEP
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorizationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Authorization Date </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Date that transmit permission was given by authority
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="justification" type="iepTransmitPermissionJustificationType" minOccurs="0" />
+			<xs:element name="destination" type="iepTransmitPermissionDestinationType" minOccurs="0" />
+			<xs:element name="purpose" type="iepTransmitPermissionPurposeType" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<!-- local parent type -->
+	<xs:complexType name='iepTransmitPermissionListType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Transmit Permissions </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> History List of Transmit Permissions </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type='iepTransmitPermissionType' name="transmitPermission" minOccurs="0" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

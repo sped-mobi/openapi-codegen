@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd"/>
+	<xs:include schemaLocation="../iepCommonTypes.xsd"/>
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:complexType name="iepPlanAnnualGoalServicesListServiceFrequencyCycleType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Service Cycle
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Amount of time during cycle that student receives service
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="count" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Service Cycle Count
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						The number of service events in a service repetition period.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="period" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Service Cycle Period
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						The period in which the service events must be repeated.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:enumeration value="day"/>
+						<xs:enumeration value="week"/>
+						<xs:enumeration value="month"/>
+						<xs:enumeration value="quarter"/>
+						<xs:enumeration value="term"/>
+						<xs:enumeration value="year"/>
+						<xs:enumeration value="school year"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepPlanAnnualGoalServicesListServiceFrequencyDurationType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Duration
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Amount of time during cycle that student receives service
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="directMinutes" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Direct Minutes
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Time spent directly with the student.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="indirectMinutes" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Indirect Minutes
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Service provider time spent on other service activities that are not with the student.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepPlanAnnualGoalServicesListServiceFrequencyType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Frequency
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Prescription for amount of service to be given.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iepPlanAnnualGoalServicesListServiceFrequencyCycleType" name="cycle"
+				minOccurs="0"/>
+			<xs:element type="iepPlanAnnualGoalServicesListServiceFrequencyDurationType"
+				name="duration" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="iepPlanAnnualGoalServicesListServiceType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Service
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Support for student progress given by professional or para-professionals on a scheduled basis.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="type" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Service Type
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>000273</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/000273</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						Type of related or ancillary services provided to a person or a group of persons within the formal educational system or offered by an outside agency which provides non-instructional services to support the general welfare of students. This includes physical and emotional health, the ability to select an appropriate course of study, admission to appropriate educational programs, and the ability to adjust to and remain in school through the completion of programs. In serving a student with an identified disability, related services include developmental, corrective, or supportive services required to ensure that the person benefits from special education.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+
+						<xs:enumeration value="00290">
+							<xs:annotation>
+								<xs:appinfo>Adaptive physical education</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00291">
+							<xs:annotation>
+								<xs:appinfo>Art therapy</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00292">
+							<xs:annotation>
+								<xs:appinfo>Assistive technology services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00293">
+							<xs:annotation>
+								<xs:appinfo>Audiological services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73050">
+							<xs:annotation>
+								<xs:appinfo>Augmentative Communication Service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73051">
+							<xs:annotation>
+								<xs:appinfo>Autism Spectrum Disorder Service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73052">
+							<xs:annotation>
+								<xs:appinfo>Behavior and Behavioral Consultation Service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73053">
+							<xs:annotation>
+								<xs:appinfo>Braille Service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00878">
+							<xs:annotation>
+								<xs:appinfo>Case management services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00295">
+							<xs:annotation>
+								<xs:appinfo>Children's protective services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00881">
+							<xs:annotation>
+								<xs:appinfo>Communication services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00882">
+							<xs:annotation>
+								<xs:appinfo>Community recreational services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73048">
+							<xs:annotation>
+								<xs:appinfo>Curriculum planning</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00334">
+							<xs:annotation>
+								<xs:appinfo>Developmental childcare program</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73047">
+							<xs:annotation>
+								<xs:appinfo>Early Intervention / Early Childhood Special Education Special Service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00297">
+							<xs:annotation>
+								<xs:appinfo>Early intervention services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00298">
+							<xs:annotation>
+								<xs:appinfo>Educational therapy</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73054">
+							<xs:annotation>
+								<xs:appinfo>ESL/Migrant Service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00299">
+							<xs:annotation>
+								<xs:appinfo>Family counseling</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00333">
+							<xs:annotation>
+								<xs:appinfo>Family training, counseling, and home visits</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00303">
+							<xs:annotation>
+								<xs:appinfo>Health care</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00883">
+							<xs:annotation>
+								<xs:appinfo>Independent living</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73049">
+							<xs:annotation>
+								<xs:appinfo>Instructional Aide/Assistant/Intervener Service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00304">
+							<xs:annotation>
+								<xs:appinfo>Interpretation for the hearing impaired</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00332">
+							<xs:annotation>
+								<xs:appinfo>Medical services only for diagnostic or evaluation purposes</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00305">
+							<xs:annotation>
+								<xs:appinfo>Mental health counseling</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00884">
+							<xs:annotation>
+								<xs:appinfo>Mental health services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00306">
+							<xs:annotation>
+								<xs:appinfo>Music therapy</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00300">
+							<xs:annotation>
+								<xs:appinfo>National School Nutrition programs</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00308">
+							<xs:annotation>
+								<xs:appinfo>Note-taking assistance</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00335">
+							<xs:annotation>
+								<xs:appinfo>Nursing service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00336">
+							<xs:annotation>
+								<xs:appinfo>Nutrition services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00309">
+							<xs:annotation>
+								<xs:appinfo>Occupational therapy</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00310">
+							<xs:annotation>
+								<xs:appinfo>Orientation and mobility services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00311">
+							<xs:annotation>
+								<xs:appinfo>Parenting skills assistance</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00312">
+							<xs:annotation>
+								<xs:appinfo>Peer services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00313">
+							<xs:annotation>
+								<xs:appinfo>Physical therapy</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00331">
+							<xs:annotation>
+								<xs:appinfo>Psychological services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00314">
+							<xs:annotation>
+								<xs:appinfo>Reader service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00315">
+							<xs:annotation>
+								<xs:appinfo>Recreation service</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00318">
+							<xs:annotation>
+								<xs:appinfo>Rehabilitation counseling services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00885">
+							<xs:annotation>
+								<xs:appinfo>Residential services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="73046">
+							<xs:annotation>
+								<xs:appinfo>Respite Care</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00319">
+							<xs:annotation>
+								<xs:appinfo>School clothing</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00302">
+							<xs:annotation>
+								<xs:appinfo>School counseling</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00320">
+							<xs:annotation>
+								<xs:appinfo>School health nursing services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00294">
+							<xs:annotation>
+								<xs:appinfo>Service coordination (case management services)</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00337">
+							<xs:annotation>
+								<xs:appinfo>Social work services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00321">
+							<xs:annotation>
+								<xs:appinfo>Special transportation</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00322">
+							<xs:annotation>
+								<xs:appinfo>Speech-language therapy</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00323">
+							<xs:annotation>
+								<xs:appinfo>Study skills assistance</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00324">
+							<xs:annotation>
+								<xs:appinfo>Substance abuse education/prevention</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00886">
+							<xs:annotation>
+								<xs:appinfo>Supported employment services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00887">
+							<xs:annotation>
+								<xs:appinfo>Technological aids</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00325">
+							<xs:annotation>
+								<xs:appinfo>Teen/adolescent family planning</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00326">
+							<xs:annotation>
+								<xs:appinfo>Test assistance</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00327">
+							<xs:annotation>
+								<xs:appinfo>Translation/interpreter services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00888">
+							<xs:annotation>
+								<xs:appinfo>Transportation services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00329">
+							<xs:annotation>
+								<xs:appinfo>Tutoring services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00330">
+							<xs:annotation>
+								<xs:appinfo>Vision services</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="00889">
+							<xs:annotation>
+								<xs:appinfo>Career and technical education rehabilitation training and job placement</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+
+						<xs:enumeration value="09999">
+							<xs:annotation>
+								<xs:appinfo>Other</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="inclusiveSettingIndicator" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Inclusive Setting Indicator
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001634</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001634</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						Indicates that services are provided to the child in a place where children of all abilities learn together.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+						<xs:enumeration value="Yes"/>
+						<xs:enumeration value="No"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element type="iepCommonServiceProviderType" name="serviceProvider" minOccurs="0"/>
+			<xs:element type="iepPlanAnnualGoalServicesListServiceFrequencyType" name="frequency"
+				minOccurs="0"/>
+			<xs:element name="startDate" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Goal Start Date
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001165</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001165</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						The date on which the goal becomes active.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endDate" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Goal End Date
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001166</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001166</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						The date on which the goal expires or has been achieved.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nonParticipationReason" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Reason for Declined Services
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001488</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001488</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						The reason given for declining the recommended services.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extendsSchoolYear" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Service Extends Outside School Year
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>001717</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/001717</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						Determination if this service continues outside school year.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="Yes"/>
+						<xs:enumeration value="No"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- named type -->
+	<xs:complexType name="iepPlanAnnualGoalServicesListType">
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Service List
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				List of supporting resources required for student to achieve a goal
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type="iepPlanAnnualGoalServicesListServiceType" name="service" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

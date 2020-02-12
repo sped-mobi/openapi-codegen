@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{07A3BD09
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{ACBFC54F-62C3-4A64-9718-E430824D6E17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.OpenApi.CodeGeneration.Interfaces", "src\Microsoft.OpenApi.CodeGeneration.Interfaces\Microsoft.OpenApi.CodeGeneration.Interfaces.csproj", "{B229AF8A-2856-4303-96DC-5D964B812A73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{12613504-2771-4A96-BD07-FB096928138F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12613504-2771-4A96-BD07-FB096928138F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12613504-2771-4A96-BD07-FB096928138F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B229AF8A-2856-4303-96DC-5D964B812A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B229AF8A-2856-4303-96DC-5D964B812A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B229AF8A-2856-4303-96DC-5D964B812A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B229AF8A-2856-4303-96DC-5D964B812A73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{97BF6BA4-89F9-45C5-9440-DF0277669822} = {07A3BD09-3668-4070-A060-BCE687038D02}
 		{12613504-2771-4A96-BD07-FB096928138F} = {ACBFC54F-62C3-4A64-9718-E430824D6E17}
+		{B229AF8A-2856-4303-96DC-5D964B812A73} = {ACBFC54F-62C3-4A64-9718-E430824D6E17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8995280C-C576-4653-9C44-6689B7F39633}

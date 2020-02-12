@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+	<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:complexType name='iepPlanPresentLevelPerformanceConsequenceOfDisabilitySpecialCategoryListSpecialCategoryType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Special Category </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Category being fulfilled by this plan </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="programType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Individualized Program Type </elementName>
+						<sifChar>O</sifChar>
+						<cedsId>000320</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/000320</cedsURL>
+					</xs:appinfo>
+					<xs:documentation> A designation of the type of program developed for a student.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:normalizedString">
+
+						<xs:enumeration value="05978">
+							<xs:annotation>
+								<xs:appinfo>504 plan</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="89600">
+							<xs:annotation>
+								<xs:appinfo>College and Career Ready Learning Plan</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="05980">
+							<xs:annotation>
+								<xs:appinfo>GIEP - Individualized education program for gifted student</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="02196">
+							<xs:annotation>
+								<xs:appinfo>Individualized education program (IEP)</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="02198">
+							<xs:annotation>
+								<xs:appinfo>Individualized family service plan (IFSP)</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="02197">
+							<xs:annotation>
+								<xs:appinfo>Individualized learning program (ILP)</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="05982">
+							<xs:annotation>
+								<xs:appinfo>Individualized transition plan</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="02349">
+							<xs:annotation>
+								<xs:appinfo>Limited English proficient/English language learner</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="05981">
+							<xs:annotation>
+								<xs:appinfo>Literacy plan</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="05979">
+							<xs:annotation>
+								<xs:appinfo>Student intervention/support plan</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+
+						<xs:enumeration value="09999">
+							<xs:annotation>
+								<xs:appinfo>Other</xs:appinfo>
+							</xs:annotation>
+						</xs:enumeration>
+			
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="explanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName> Explanation </elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation> Reason student is included in this category </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepPlanPresentLevelPerformanceConsequenceOfDisabilitySpecialCategoryListType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Special Category List </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Special categories applying to this plan </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type='iepPlanPresentLevelPerformanceConsequenceOfDisabilitySpecialCategoryListSpecialCategoryType' name="specialCategory" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- named type -->
+	<xs:complexType name='iepPlanPresentLevelPerformanceConsequenceOfDisabilityType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName> Consequence of Disability </elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation> Summary of how disabilities effect the student�s ability to participate and learn
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="curriculum" type="xs:normalizedString" minOccurs="0" />
+			<xs:element type='iepPlanPresentLevelPerformanceConsequenceOfDisabilitySpecialCategoryListType' name="specialCategoryList" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

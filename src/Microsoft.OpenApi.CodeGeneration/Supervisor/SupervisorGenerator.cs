@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.OpenApi.CodeGeneration.Utilities;
 using Microsoft.OpenApi.Models;
 
 namespace Microsoft.OpenApi.CodeGeneration.Supervisor
@@ -39,6 +40,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Supervisor
                 WriteLine($"public partial class {supervisorName} : {supervisorInterfaceName}");
                 using (OpenBlock())
                 {
+                    var nameList = document.GetSchemaKeys();
                     IDictionary<string, OpenApiSchema> schemas = document.GetSchemas();
                     foreach (var kvp in schemas)
                     {
@@ -78,7 +80,8 @@ namespace Microsoft.OpenApi.CodeGeneration.Supervisor
 
                     foreach (var kvp in schemas)
                     {
-                        Process(kvp.Key, kvp.Value);
+
+                        Process(StringUtilities.MakePascal(kvp.Key), kvp.Value);
                     }
                 }
             }
@@ -121,7 +124,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Supervisor
                 }
 
                 WriteLine($"entity = await {repositoryFieldName}.AddAsync(entity, ct);");
-                WriteLine($"input.{name}Id = entity.{name}Id;");
+                WriteLine($"input.{name}ID = entity.{name}ID;");
                 WriteLine($"return input;");
 
             }
@@ -130,12 +133,13 @@ namespace Microsoft.OpenApi.CodeGeneration.Supervisor
             WriteLine($"public async Task<bool> Update{name}Async({viewModelName} input, CancellationToken ct = default(CancellationToken))");
             using (OpenBlock())
             {
-                WriteLine($"var entity = await {repositoryFieldName}.GetByIdAsync(input.{name}Id, ct);");
+                WriteLine($"var entity = await {repositoryFieldName}.GetByIdAsync(input.{name}ID, ct);");
                 WriteLine($"if (entity == null) return false;");
                 foreach (var kvp in schema.GetSimpleProperties())
                 {
                     WriteLine($"entity.{kvp.Key} = input.{kvp.Key};");
                 }
+
                 WriteLine($"return await {repositoryFieldName}.UpdateAsync(entity, ct);");
             }
 
@@ -167,7 +171,7 @@ namespace Microsoft.OpenApi.CodeGeneration.Supervisor
                 {
                     foreach (var kvp in document.GetSchemas())
                     {
-                        string name = kvp.Key;
+                        string name = StringUtilities.MakePascal(kvp.Key);
                         string entityName = Dependencies.Namer.Entity(kvp.Key);
                         string viewModelName = Dependencies.Namer.ViewModel(kvp.Key);
                         string primaryKeyTypeName = document.Options.PrimaryKeyTypeName;

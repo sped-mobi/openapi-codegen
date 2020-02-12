@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- start redundant declaration  for SIF tool analysis -->
+	<xs:include schemaLocation="../../../SIFglobal.xsd"/>
+	<xs:include schemaLocation="../../../Composite/SIFNAxPressCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Composite/SIFNAxPress.xsd" />
+	<xs:include schemaLocation="../iepCommonTypes.xsd" />
+	<xs:include schemaLocation="../../../Report/SIFNAxSRECommonTypes.xsd"/>
+	<!-- end redundant declaration for SIF tool analysis -->
+	<xs:complexType name='iepEligibilityIdeaDisabilityAnalysisType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<sifChar>OR</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="adverseEffects" type="xs:normalizedString" minOccurs="0" >
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Adverse Effects Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Discussion of the educational problems that result from the disability
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="educationNeeds" type="xs:normalizedString" minOccurs="0" >
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Education Needs Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Description of the overall changes needed for the student's educational program
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accommodation" type="xs:normalizedString" minOccurs="0" >
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Accommodations
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Description of the accommodation needed to optimize the student's potential for learning.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="otherInformation" type="xs:normalizedString" minOccurs="0" >
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Additional IDEA Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Additional information that explains how to improve the student's educational outcome.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityIdeaDisabilityDecisionsType'>
+		<xs:sequence>
+			<xs:element name="specificDisabilityIdentified" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Specific Disability Officially Exists
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>000577</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/000577</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						An indication of whether a person is classified as disabled under the American's with Disability Act (ADA).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="adverseEffectIdentified" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Adverse Effects Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Official determination that the disability has adverse effects
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eligible" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Student is Eligible
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId>000151</cedsId>
+						<cedsURL>https://ceds.ed.gov/element/000151</cedsURL>
+					</xs:appinfo>
+					<xs:documentation>
+						A person having intellectual disability; hearing impairment, including deafness; speech or language impairment; visual impairment, including blindness; serious emotional disturbance (hereafter referred to as emotional disturbance); orthopedic impairment; autism; traumatic brain injury; developmental delay; other health impairment; specific learning disability; deaf-blindness; or multiple disabilities and who, by reason thereof, receive special education and related services under the Individuals with Disabilities Education Act (IDEA) according to an Individualized Education Program (IEP), Individual Family Service Plan (IFSP), or service plan.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="Yes"/>
+						<xs:enumeration value="No"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="identity" type="iepCommonAuthorizingPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Identity of Deciding Person
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId />
+						<cedsURL />
+					</xs:appinfo>
+					<xs:documentation>
+						Identity of Person Responsible for Eligibility Determination
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityIdeaDisabilitySpecificLearningDisabilityDecisionsType'>
+		<xs:sequence>
+			<xs:element name="severeDiscrepancyFound" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Severe Discrepancy Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Determination that there is a severe discrepancy between standard educational attainment and student performance
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InsufficientResponseToInterventionFound" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Insufficient Response to Intervention
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Determination that student has not responded to intervention
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eligibleForSpecificLearningDisabilityFinding" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Eligible
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Determination that this student is eligible for special education
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsprimaryCauseExclusionsDeterminantFactorsType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Determinant Factors
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Conditions whose presence disqualifies student from special education programs
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="insufficientMath" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Insufficient Math Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Insufficient Math Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="insufficientReading" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Insufficient Reading Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Insufficient Reading Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="insufficientEnglish" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Insufficient English Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Insufficient English Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="visualHearingOrMotorDisability" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Visual, Hearing Or Motor Disability Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Visual, Hearing Or Motor Disability Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intellectualDisability" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Intellectual Disability Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Intellectual Disability Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="emotionalDisability" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Emotional Disability Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Emotional Disability Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="culturalFactors" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Cultural Factors Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Cultural Factors Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="environmentalOrEconomicDisadvantage" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Environmental Or Economic Disadvantage Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Environmental Or Economic Disadvantage Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="limitedEnglishProficiency" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Limited English Proficiency Found
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Limited English Proficiency Found
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsPrimaryCauseExclusionsType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Primary Cause Exclusions
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Proof that the disability is not the the result of disqualified causes and is qualified for funding
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsprimaryCauseExclusionsDeterminantFactorsType' name="determinantFactors" minOccurs="0" />
+			<xs:element name="medicalExplanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Medical Reasons Against Exclusions
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Medical reasons for determination that a potentially excluded factor is actually a disability
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="otherFactorsExplanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Other Reasons Against Exclusion
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Other reasons that student should not be excluded from special education programs
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsSpecificLearningDisabilityType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					Justification for Specific Learning Disability
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				CEDS: Information supporting disability code ‘specific learning disability’
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element type='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsPrimaryCauseExclusionsType' name="primaryCauseExclusions" minOccurs="0" maxOccurs="1" />
+			<xs:element name="lackOfAdequateAchievementExplanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Lack of Adequate Achievement Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Description the specific educational shortcomings that lead to a disability diagnosis
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="learningSettingObservations" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Learning Setting Observations
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Observations about the student’s performance in a practical learning setting
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type='iepEligibilityIdeaDisabilitySpecificLearningDisabilityDecisionsType' name="decisions" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsType'>
+		<xs:sequence>
+			<xs:element type='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsSpecificLearningDisabilityType' name="specificLearningDisability" minOccurs="0" maxOccurs="1" />
+			<xs:element name="TeamOverride" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Justification for Team Override
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Information supporting the disability code ‘Team Override’
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- named type -->
+	<xs:complexType name='iepEligibilityIdeaDisabilityType'>
+		<xs:annotation>
+			<xs:appinfo>
+				<elementName>
+					IDEA Disability Determination
+				</elementName>
+				<sifChar>O</sifChar>
+				<cedsId/>
+				<cedsURL/>
+			</xs:appinfo>
+			<xs:documentation>
+				Formal presentation of factors leading to conclusion that IDEA disability had been found or not
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="disabilityCodeList" type="iepCommonIdeaDisabilityCodeListType" minOccurs="0" />
+			<xs:element name="explanation" type="xs:normalizedString" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<elementName>
+							Explanation
+						</elementName>
+						<sifChar>O</sifChar>
+						<cedsId/>
+						<cedsURL/>
+					</xs:appinfo>
+					<xs:documentation>
+						Explanation or information refining disabilty selection.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type='iepEligibilityIdeaDisabilityAnalysisType' name="analysis" minOccurs="0" />
+			<xs:element type='iepEligibilityIdeaDisabilitySpecificLearningDisabilitySpecialDiagnosisJustificationsType' name="SpecialDiagnosisJustifications" minOccurs="0" />
+			<xs:element type='iepEligibilityIdeaDisabilityDecisionsType' name="decisions" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
